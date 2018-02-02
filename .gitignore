@@ -1,0 +1,22 @@
+# Wordpress
+
+*.log
+wp/wp-config.php
+wp/wp-content/advanced-cache.php
+wp/wp-content/backup-db/
+wp/wp-content/backups/
+wp/wp-content/blogs.dir/
+wp/wp-content/cache/
+wp/wp-content/upgrade/
+wp/wp-content/uploads/
+wp/wp-content/mu-plugins/
+wp/wp-content/wp-cache-config.php
+wp/wp-content/plugins/hello.php
+
+/.htaccess
+/license.txt
+/readme.html
+/sitemap.xml
+/sitemap.xml.gz
+
+setup/env
