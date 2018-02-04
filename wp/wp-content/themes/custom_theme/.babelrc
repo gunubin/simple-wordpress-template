@@ -1,9 +1,16 @@
 {
   "presets": [
-    "env",
+    ["env",
+      {
+        "modules": false,
+      }
+    ],
     "stage-0"
+
   ],
   "plugins": [
+    "syntax-flow",
+    "transform-flow-strip-types",
     "transform-class-properties",
     "transform-decorators"
   ]

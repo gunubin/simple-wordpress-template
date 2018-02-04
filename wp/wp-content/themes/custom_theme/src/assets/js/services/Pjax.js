@@ -1,5 +1,6 @@
-import {EventEmitter} from 'events'
-import Barba from 'barba.js'
+/* @flow */
+import EventEmitter from 'events'
+import Barba from '../../../../node_modules/barba.js/dist/barba'
 import {Power2, TimelineLite, TweenMax} from "gsap"
 import timelinePromise from '../lib/timelinePromise'
 
@@ -28,9 +29,10 @@ export default class Pjax extends EventEmitter {
     const _this = this
     const PageTransition = Barba.BaseTransition.extend({
       start: function () {
-        _this.emit(Pjax.FETCH)
+        _this.emit(Pjax.FETCH, this.oldContainer)
+
         this.newContainerLoading.then(() => {
-          _this.emit(Pjax.LOADED)
+          _this.emit(Pjax.LOADED, this.newContainer)
         })
         Promise
           .all([
@@ -38,11 +40,7 @@ export default class Pjax extends EventEmitter {
             _this.pageOut(this.oldContainer)
           ])
           .then(function () {
-            _this.pageIn(
-              this.newContainer,
-              this.oldContainer,
-              this.done.bind(this)
-            )
+            _this.pageIn(this.newContainer, this.oldContainer, this.done.bind(this))
           }.bind(this))
       }
     })
@@ -51,16 +49,16 @@ export default class Pjax extends EventEmitter {
     }
   }
 
-  pageOut(oldContainer) {
-    const t = TweenMax.to(oldContainer, 0.5, {opacity: 0})
+  pageOut(oldContainer: HTMLElement): Promise<*> {
+    const t = TweenMax.to(oldContainer, 0.3, {opacity: 0})
     return timelinePromise(t)
   }
 
-  pageIn(newContainer, oldContainer, done) {
+  pageIn(newContainer: HTMLElement, oldContainer: HTMLElement, done: Function) {
     TweenMax.to(oldContainer, 0.0, {opacity: 0})
     const tl = new TimelineLite({paused: true})
     tl.add([
-      TweenMax.fromTo(newContainer, 1.5, {opacity: 0, visibility: 'visible'}, {opacity: 1})
+      TweenMax.fromTo(newContainer, 0.8, {opacity: 0, visibility: 'visible'}, {opacity: 1})
     ])
     timelinePromise(tl).then(() => {
       done()
@@ -71,7 +69,7 @@ export default class Pjax extends EventEmitter {
 
   start() {
     Barba.Pjax.start()
-    Barba.Prefetch.init();
+    Barba.Prefetch.init()
   }
 
 }

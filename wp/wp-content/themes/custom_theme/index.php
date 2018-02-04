@@ -1,6 +1,5 @@
 <?php get_header(); ?>
 
-<div class="foo">foo</div>
 
 <div>
   main
@@ -12,7 +11,10 @@
     ...Put here the content you wish to change between pages...
 
     <br />
-    <div class="animate">animate</div>
+
+    <div class="animate">animate <span class="animate-span">span</span></div>
+
+    <div class="foo">foo</div>
     <a href="/about">about link</a>
   </div>
 </div>

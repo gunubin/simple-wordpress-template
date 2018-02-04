@@ -1,64 +1,115 @@
+/* @flow */
 import MutationObserver from 'mutation-observer'
-import Pjax from './Pjax'
+import Pjax from '../services/Pjax'
+
+export type Selector = () => HTMLElement
 
 /**
  * Component Class
  */
 export default class Component {
+  container: HTMLElement
+  element: ?HTMLElement
+  className: string
+  in_document: boolean
+  observer: MutationObserver
+  selector: Selector
+  pjax: Pjax
 
   /**
    * constructor
    *
-   * @param element - Element
+   * @param selector - string
    */
-  constructor(element) {
-    this.element = element
-    this._init()
-
+  constructor(selector: Selector) {
     this.pjax = Pjax.create()
-    this.pjax.on(Pjax.FETCH, () => this.fetch())
-    this.pjax.on(Pjax.LOADED, () => this.loaded())
-    this.pjax.on(Pjax.COMPLETE, () => this.complete())
+    this.pjax.on(Pjax.FETCH, this.fetch.bind(this))
+    this.pjax.on(Pjax.LOADED, this.loaded.bind(this))
+    this.pjax.on(Pjax.COMPLETE, this.complete.bind(this))
+
+    if (selector) {
+      this.attach(selector)
+    }
   }
 
-  _init() {
-    const container = this.element.parentElement || document.body
-    const observer = new MutationObserver((MutationRecords, MutationObserver) => {
-      const added = MutationRecords[0].addedNodes[0] === this.element
-      const removed = MutationRecords[0].removedNodes[0] === this.element
-      if (added) {
-        this.mount()
-      }
-      if (removed) {
+  attach(selector: Selector) {
+    this.container = this.container || document.body
+    this.selector = selector
+    if (!this.selector) {
+      throw new ReferenceError('selector is not found.')
+    }
+    this.element = this.select()
+    this.init()
+  }
+
+  setContainer(container: HTMLElement) {
+    this.container = container
+  }
+
+  init() {
+    this.in_document = this.container.contains(this.element)
+    if (this.in_document) {
+      this.ready()
+    }
+    if(this.observer) {
+      this.observer.disconnect()
+    }
+    this.observer = new MutationObserver((mutations, observer) => {
+      this.element = this.select()
+      // TODO: パフォーマンス確認
+      if (this.container.contains(this.element)) {
+        if (!this.in_document) {
+          this.mount()
+        }
+        this.in_document = true
+      } else if (this.in_document) {
+        this.in_document = false
         this.unMount()
       }
     })
 
-    observer.observe(container, {
+    this.observer.observe(this.container, {
       childList: true,
       subtree: true
     })
   }
 
   /**
+   * select
+   */
+  select(): ?HTMLElement {
+    if (typeof this.selector === 'function') {
+      return this.selector()
+    }
+    return this.container.querySelector(this.selector)
+  }
+
+  /**
    * pjaxのfetch
    */
-  fetch() {
-    console.log('component fetch', this)
+  fetch(oldContainer: HTMLElement) {
+    // console.log('component fetch', this)
   }
 
   /**
    * pjaxのdomのロード完了
    */
-  loaded() {
-    console.log('component loaded', this)
+  loaded(newContainer: HTMLElement) {
+    this.element = this.select()
   }
 
   /**
    * pjaxの完了(アニメーション含めた)
    */
   complete() {
-    console.log('component complete', this)
+    // console.log('component complete', this)
+  }
+
+  /**
+   * ready
+   */
+  ready() {
+
   }
 
   /**

@@ -1,33 +1,42 @@
+/* @flow */
 import Component from '../lib/Component'
+import type {Selector} from '../lib/Component'
 import {TweenMax} from 'gsap'
 
 export default class Animate extends Component {
 
-  constructor(element) {
-    super(element)
+  constructor(selector: Selector) {
+    super(selector)
 
-    if (this.element) {
-      this.animate()
-    }
   }
 
-  animate() {
-    TweenMax.to(this.element, 1, {x: 100})
-  }
-
-  loaded() {
-    this.element = document.querySelector('.animate')
-    console.log('loaded========================', this.element)
-    TweenMax.to(this.element, 4, {x: 100, onComplete: () => {
-        console.log('aaaacom')}})
+  // loaded(newContainer, oldContainer) {
+  //   super.loaded(newContainer, oldContainer)
+    // this.element = document.querySelector('.animate')
+  // }
+  ready() {
+    TweenMax.to(this.element, 4, {x: 100, onComplete: () => {}})
   }
 
   mount() {
+    TweenMax.to(this.element, 4, {x: -100, onComplete: () => {}})
     console.log('animate mount!!!!!!!!')
+    // TweenMax.to(this.element, 4, {x: 100, onComplete: () => {}})
   }
 
   unMount() {
     console.log('animate unmount!!!!!!!!')
+  }
+
+  complete() {
+  }
+
+  mountDocument() {
+    console.log('animate mount document!!!!!!!!')
+  }
+
+  unMountDocument() {
+    console.log('animate unmount document!!!!!!!!')
   }
 
 }

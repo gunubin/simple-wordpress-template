@@ -1,5 +1,4 @@
 const ready = () => new Promise(resolve => {
-  console.log(document.readyState, '歯科う')
   if (document.readyState === "complete") {
     setImmediate(() => resolve())
     return
