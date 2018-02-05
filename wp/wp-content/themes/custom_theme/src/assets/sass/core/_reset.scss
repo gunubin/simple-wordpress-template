@@ -1,0 +1,98 @@
+/* ------------------------------------------------------------
+
+  group reset
+
+----------------------------------------------------------- */
+html {
+  -webkit-text-size-adjust: none;
+  font-size: 10px;
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  letter-spacing: 1px;
+  line-height: 1.8;
+  font-size: 62.5%;
+  font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS P Gothic", Verdana, sans-serif;
+  -webkit-backface-visibility: hidden;
+  background-color: #fff;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  &:before,
+  &:after {
+    box-sizing: border-box;
+  }
+}
+
+section, header, footer {
+  display: block;
+}
+section {
+  position: relative;
+}
+
+svg {
+  -webkit-backface-visibility: hidden;
+}
+
+p, li, dt, dd, th, td, pre {
+  line-break: strict;
+  word-break: break-strict;
+}
+
+a {
+  text-decoration: none;
+}
+
+p, div, dl, dt, dd, ul, ol, li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+em {
+  font-style: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+  margin: 0;
+}
+
+input,
+button,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  box-shadow: none;
+  border: none;
+  border-radius: 0;
+}
+
+input[type='text'],
+textarea {
+  -webkit-appearance: none;
+}
+
+select:focus,
+button:focus,
+input:focus,
+textarea:focus {
+  outline: none;
+}
+
+hr {
+  box-shadow: none;
+  border: none;
+  border-radius: 0;
+}
+
+img {
+  vertical-align: middle;
+}

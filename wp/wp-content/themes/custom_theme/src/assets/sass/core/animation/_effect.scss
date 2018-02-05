@@ -1,0 +1,95 @@
+@function fade( $from: 0, $to: 1) {
+  $keyframes: (
+          name: 'fade-test',
+          0: (opacity: $from),
+          100: (opacity: $to),
+  );
+  @return $keyframes;
+}
+/* property
+------------------------------------------------------------ */
+@function keyframes-property($prefix: '', $name: '', $from: 0, $to: 1, $isPac:false) {
+  $from_name: $from;
+  $to_name: $to;
+  $from_value: $from;
+  $to_value: $to;
+  @if $isPac {
+    $from_name: $from * 100;
+    $to_name: $to * 100;
+    $from_value: $from_name * 1%;
+    $to_value: $to_name * 1%;
+  }
+  $keyframes: (
+          name: '#{unquote($prefix)}-#{$from_name}-#{$to_name}',
+          0: ($name: $from_value),
+          100: ($name: $to_value),
+  );
+  @return $keyframes;
+}
+/* scale
+------------------------------------------------------------ */
+@function _scale($prefix: '', $from: 0, $to: 1, $axis: Y, $origin: top) {
+  $origin-value: $origin;
+  @if is-number($origin) {
+    $origin-value: $origin * 1%;
+  }
+  $keyframes: (
+          name: '#{unquote($prefix)}-axis-#{$axis}-origin-#{$origin}-#{$from*100}-#{$to*100}',
+          0: (transform: 'scale#{$axis}(#{$from})', transform-origin: $origin-value),
+          100: (transform: 'Scale#{$axis}(#{$to})', transform-origin: $origin-value),
+  );
+  @return $keyframes;
+}
+@function scaleUpIn($from: 0, $to: 1) {
+  @return _scale('scaleUpIn', 0, 1, Y, top);
+}
+@function scaleUpOut() {
+  @return _scale('scaleUpOut', 1, 0, Y, top);
+}
+@function scaleDownIn($from: 0, $to: 1) {
+  @return _scale('scaleDownIn', $from, $to, Y, bottom);
+}
+@function scaleDownOut() {
+  @return _scale('scaleDownOut', 1, 0, Y, bottom);
+}
+/* translate
+------------------------------------------------------------ */
+@function _translate($prefix: '', $from: 0, $to: 100, $axis: Y, $origin: top ) {
+  $origin-value: $origin;
+  @if is-number($origin) {
+      $origin-value: $origin * 1%;
+  }
+  $keyframes: (
+          name: '#{unquote($prefix)}-axis-#{$axis}-origin-#{$origin}-#{$from}-#{$to}',
+          0: (transform: 'translate#{$axis}(#{$from*1%})', transform-origin: $origin-value),
+          100: (transform: 'translate#{$axis}(#{$to*1%})', transform-origin: $origin-value),
+  );
+  @return $keyframes;
+}
+@function translateDownIn() {
+  @return _translate('translateDownIn', -120, 0, Y, top);
+}
+@function translateDownOut($from: 0, $to: -120) {
+  @return _translate('translateDownOut', $from, $to, Y, top);
+}
+@function translateUpIn($from: 120, $to: 0) {
+  @return _translate('translateUpIn', $from, $to, Y, bottom);
+}
+@function translateUpOut($from: 0, $to: 120) {
+  @return _translate('translateUpOut', $from, $to, Y, bottom);
+}
+/* translate opacity
+------------------------------------------------------------ */
+@function translateOpacity($prefix: '', $from: 0, $to: 100, $axis: Y, $origin: top ) {
+  $keyframes: (
+          name: '#{unquote($prefix)}-#{$from}-#{$to}',
+          0: (
+                  opacity: min(1, $from/100), transform: 'translate#{$axis}(#{$from*1%})', transform-origin: $origin
+          ),
+          100: (
+                  opacity: min(1, $to/100), transform: 'translate#{$axis}(#{$to*1%})', transform-origin: $origin
+          ),
+  );
+  @return $keyframes;
+}
+

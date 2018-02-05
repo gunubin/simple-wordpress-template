@@ -1,0 +1,16 @@
+// gutterの上書き
+@mixin override-gutter($gutter-width) {
+  .container {
+    padding-left: #{$gutter-width/2}px;
+    padding-right: #{$gutter-width/2}px;
+  }
+  .row {
+    margin-left: -#{$gutter-width/2}px;
+    margin-right: -#{$gutter-width/2}px;
+  }
+  [class^="col-"] {
+    padding-left: #{$gutter-width/2}px;
+    padding-right: #{$gutter-width/2}px;
+  }
+}
+

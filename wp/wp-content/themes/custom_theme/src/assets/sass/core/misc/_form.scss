@@ -1,0 +1,53 @@
+@mixin reset-form-controls($background-color: #fff, $color: #000, $placeholder-color: #999, $border-color: false) {
+  ::-webkit-input-placeholder {
+    color: $placeholder-color !important;
+  }
+  ::-moz-placeholder {
+    opacity: 1;
+    color: $placeholder-color !important;
+  }
+  :-moz-placeholder {
+    opacity: 1;
+    color: $placeholder-color !important;
+  }
+  :-ms-input-placeholder {
+    color: $placeholder-color !important;
+  }
+  input[type='text'],
+  input[type='email'],
+  input[type='tel'],
+  textarea, select {
+    width: 100%;
+    background-color: $background-color;
+    color: $color;
+    border: none;
+    appearance: none;
+    @if ($border-color != false) {
+      border: 1px solid $border-color;
+    }
+  }
+  // IE10
+  select::-ms-expand {
+    display: none;
+  }
+  // firefox
+  select {
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';
+  }
+  input[type='checkbox'] {
+    position: absolute;
+    margin-left: -16px;
+    margin-top: #{(30-14)/2}px;
+  }
+  input[type='submit'] , input[type='reset'] {
+    //background-color: transparent;
+    //padding: 0;
+    //margin: 0;
+    //border: none;
+    //-webkit-appearance: none;
+  }
+
+}
+

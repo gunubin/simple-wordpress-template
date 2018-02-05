@@ -1,0 +1,20 @@
+@function is-string($value) { @return type-of($value) == 'string'; }
+@function is-number($value) { @return type-of($value) == 'number'; }
+@function is-list($value) { @return type-of($value) == 'list'; }
+@function is-map($value) { @return type-of($value) == 'map'; }
+
+@function map-set($map, $key, $value) {
+  $new: ($key: $value);
+  @return map-merge($map, $new);
+}
+
+@function process-args($args...) {
+  @if length($args) == 1 {
+    $arg: nth($args, 1);
+    @if type-of($arg) == 'string' {
+      @return call($arg);
+    } @else if type-of($arg) == 'map' {
+      @return $arg;
+    }
+  }
+}

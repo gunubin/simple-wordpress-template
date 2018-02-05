@@ -1,0 +1,34 @@
+/* =========================================================
+  group img
+============================================================ */
+@mixin img-max {
+  width: 100%;
+  height: auto;
+}
+
+@mixin img-responsive {
+  max-width: 100%;
+  height: auto;
+}
+
+@mixin img-contain {
+  overflow: hidden;
+  position: relative;
+  img {
+    width: auto;
+    height: auto;
+    @include center;
+  }
+}
+
+@mixin img-cover {
+  overflow: hidden;
+  position: relative;
+  img {
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    @include center;
+  }
+}

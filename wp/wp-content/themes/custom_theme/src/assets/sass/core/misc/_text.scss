@@ -1,0 +1,18 @@
+@function leading($fz: 14, $line-height: 24) {
+  $linS: $line-height / $fz;
+  $val: ($fz * $linS) - $fz;
+  @return $val;
+}
+
+@function half-leading($fz: 14, $lin: 24) {
+  @return leading($fz, $lin) / 2;
+}
+
+@mixin fz($fz, $lin, $tracking) {
+  $rem: $fz / 10;
+  $linS: $lin / $fz;
+  font-size: #{$rem}rem;
+  font-weight: 400;
+  line-height: $linS;
+  letter-spacing: #{$tracking / 1000}em;
+}

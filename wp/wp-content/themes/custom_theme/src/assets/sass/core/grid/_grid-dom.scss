@@ -1,0 +1,54 @@
+@mixin make-col($prefix: 'col', $columns: $grid-columns, $gutter-width: $grid-gutter-width, $i: 1, $class: '.#{$prefix}-#{$i}') {
+  .#{$prefix}-#{$i} {
+    @include col($i of $columns, $gutter-width);
+  }
+}
+
+@mixin make-push($prefix: 'col', $columns: $grid-columns, $i: 1) {
+  .#{$prefix}-push-#{$i} {
+    @include push($i of $columns);
+  }
+}
+@mixin make-pull($prefix: 'col', $columns: $grid-columns, $i: 1) {
+  .#{$prefix}-push-#{$i} {
+    @include pull($i of $columns);
+  }
+}
+@mixin make-offset($prefix: 'col', $columns: $grid-columns, $i: 1) {
+  .#{$prefix}-offset-#{$i} {
+    @include offset($i of $columns);
+  }
+}
+
+@mixin make-grid($prefix: 'col', $columns: $grid-columns, $gutter-width: $grid-gutter-width) {
+  @for $i from 0 through $columns {
+    @include make-col($prefix, $columns, $gutter-width, $i);
+    @include make-push($prefix, $columns, $i);
+    @include make-pull($prefix, $columns, $i);
+    @include make-offset($prefix, $columns, $i);
+  }
+}
+
+
+@mixin build-grid($namespace, $prefix, $min-width: false, $container-width: false, $gutter-width: $grid-gutter-width, $columns: $grid-columns) {
+  /* container
+  ------------------------------------------------------------ */
+  @if ($min-width == false) {
+    /* once ------------------------------------------------------------ */
+    .#{$namespace}container {
+      @include container($container-width, $gutter-width);
+    }
+    .#{$namespace}row {
+      @include row($gutter-width);
+    }
+    @include make-grid(#{$namespace}#{$prefix}, $columns, $gutter-width);
+  } @else {
+    @media (min-width: $min-width) {
+      .#{$namespace}container {
+        @include container($container-width, $gutter-width);
+      }
+      @include make-grid(#{$namespace}#{$prefix}, $columns, $gutter-width);
+    }
+  }
+}
+

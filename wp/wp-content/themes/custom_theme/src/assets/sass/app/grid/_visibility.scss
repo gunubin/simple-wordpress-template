@@ -1,0 +1,16 @@
+@media (max-width: $screen-xs-max) {
+  @include invisibility('.hidden-xs');
+  @include invisibility('.hidden-sp');
+}
+@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+  @include invisibility('.hidden-sm');
+  @include invisibility('.hidden-sp');
+}
+@media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+  @include invisibility('.hidden-md');
+  @include invisibility('.hidden-pc');
+}
+@media (min-width: $screen-lg-min) {
+  @include invisibility('.hidden-lg');
+  @include invisibility('.hidden-pc');
+}

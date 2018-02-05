@@ -1,0 +1,11 @@
+/* preload for ie11
+  http://qiita.com/sawadays0118/items/bd0731878e9eb49c03f5#-media%E4%BB%A5%E4%B8%8B%E3%81%ABcss-animation%E3%81%AEkeyframes%E3%82%92%E6%8C%87%E5%AE%9A%E3%81%99%E3%82%8B%E3%81%A8%E5%8B%95%E4%BD%9C%E3%81%97%E3%81%AA%E3%81%84
+------------------------------------------------------------ */
+@include preload-keyframes(translateDownOut)
+@include preload-keyframes(translateDownIn)
+@include preload-keyframes(translateUpOut)
+@include preload-keyframes(translateUpIn)
+@include preload-keyframes(scaleDownOut)
+@include preload-keyframes(scaleDownIn)
+@include preload-keyframes(scaleUpOut)
+@include preload-keyframes(scaleUpIn)
