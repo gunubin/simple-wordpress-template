@@ -7,28 +7,39 @@ export default class ElementScrollObserver extends EventEmitter {
   fps: number
 
   static SCROLL_UP: string = 'scroll-up'
+  static SCROLL_UP_PRE: string = 'scroll-up-pre'
   static SCROLL_DOWN: string = 'scroll-down'
+  static SCROLL_DOWN_PRE: string = 'scroll-down-pre'
 
-  constructor(margin: number = 0) {
+  constructor(margin: number = 0, ratio: number = 0.1) {
     super()
     this.margin = margin
     this.target = document.documentElement
+
+    const threshold = [0, ratio]
     this.observer = new IntersectionObserver(entries => {
       for (const entry of entries) {
-        let rect = entry.target.getBoundingClientRect()
-        const isAbove = this.margin < rect.top && rect.top <= this.target.clientHeight + this.margin
-        const isBelow = -this.margin <= rect.bottom && rect.bottom <= this.target.clientHeight - this.margin
+        const isAbove = entry.boundingClientRect.y > entry.rootBounds.y
+        const isBelow = !isAbove
         const isUp = isAbove && entry.isIntersecting
         const isDown = isBelow && entry.isIntersecting
         if (isUp) {
-          this.emit(ElementScrollObserver.SCROLL_UP)
+          if (entry.intersectionRatio > ratio) {
+            this.emit(ElementScrollObserver.SCROLL_UP, entry.target)
+          } else {
+            this.emit(ElementScrollObserver.SCROLL_UP_PRE, entry.target)
+          }
         }
         if (isDown) {
-          this.emit(ElementScrollObserver.SCROLL_DOWN)
+          if (entry.intersectionRatio > ratio) {
+            this.emit(ElementScrollObserver.SCROLL_DOWN, entry.target)
+          } else {
+            this.emit(ElementScrollObserver.SCROLL_DOWN_PRE, entry.target)
+          }
         }
       }
     }, {
-      threshold: [0],
+      threshold: threshold,
       rootMargin: `${this.margin}px`,
     })
   }
