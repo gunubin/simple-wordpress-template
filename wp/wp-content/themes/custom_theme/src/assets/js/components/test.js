@@ -1,4 +1,4 @@
-import {TweenMax, Power2, TimelineLite} from "gsap";
+import {TweenMax, Power2, TimelineLite} from "gsap"
 
 const Hoge;
 const Foo;
@@ -8,3 +8,6 @@ tl.to(Hoge.el, 1, {hoge})
 tl.to(Foo.el, 1, {hoge})
 
 tl.play()
+
+
+

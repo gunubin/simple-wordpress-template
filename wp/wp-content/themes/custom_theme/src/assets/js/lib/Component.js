@@ -22,14 +22,18 @@ export default class Component {
    * @param selector - string
    */
   constructor(selector: Selector) {
-    this.pjax = Pjax.create()
-    this.pjax.on(Pjax.FETCH, this.fetch.bind(this))
-    this.pjax.on(Pjax.LOADED, this.loaded.bind(this))
-    this.pjax.on(Pjax.COMPLETE, this.complete.bind(this))
-
     if (selector) {
       this.attach(selector)
     }
+    this._injectPjax()
+  }
+
+  _injectPjax() {
+    this.pjax = Pjax.create()
+    this.pjax.on(Pjax.FETCH, this.fetch.bind(this))
+    this.pjax.on(Pjax.LOADED, this.loaded.bind(this))
+    this.pjax.on(Pjax.LOADED, this.select.bind(this))
+    this.pjax.on(Pjax.COMPLETE, this.complete.bind(this))
   }
 
   attach(selector: Selector) {
@@ -88,21 +92,18 @@ export default class Component {
    * pjaxのfetch
    */
   fetch(oldContainer: HTMLElement) {
-    // console.log('component fetch', this)
   }
 
   /**
    * pjaxのdomのロード完了
    */
-  loaded(newContainer: HTMLElement) {
-    this.element = this.select()
+  loaded() {
   }
 
   /**
    * pjaxの完了(アニメーション含めた)
    */
   complete() {
-    // console.log('component complete', this)
   }
 
   /**

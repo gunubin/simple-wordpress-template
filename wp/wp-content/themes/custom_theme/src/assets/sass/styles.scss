@@ -3,3 +3,67 @@
 @import 'app';
 
 
+.main {
+  height: 300vh;
+}
+
+.test-container {
+  background-color: #eee;
+  //padding: 150px;
+  height: 100vh;
+}
+
+.ob-row {
+  @include row;
+}
+.ob {
+  background: #eee;
+  @include col(6,12, 5%);
+  height: 300px;
+  &-inner {
+    height: 300px;
+    background: #fcc;
+  }
+  &-sm {
+    height: 300px;
+  }
+  &-sm, &-sm &-inner {
+    height: 200px;
+  }
+}
+
+.kv-row {
+  @include row;
+}
+.kv {
+  @include col();
+  img {
+    width: 300px;
+  }
+}
+
+.row {
+  @include row;
+  @include row-middle;
+  @include row-center;
+  @include row-evenly;
+  height: 400px;
+}
+
+.col {
+  @include col(2, 12, 5%);
+  @include mq-sm {
+    @include col(1);
+  }
+}
+
+.offset {
+  margin-left: 10%;
+}
+
+.bg {
+  font-size: 24px;
+  height: 100px;
+  //padding:  30px;
+  background-color: #999;
+}

@@ -12,9 +12,17 @@ setTimeout(() => {
 
 foo()
 
+
 const seq = async () => {
   await ready()
 
+  // const s = new Scroll(document.querySelector('.ob'))
+  // s.on('scroll', (d) => {
+  //   console.log('scroll', d.top, d.bottom)
+  //   setTimeout(() => {
+  //     s.detach()
+  //   }, 2000)
+  // })
   const p = document.createElement('p')
   p.className = 'aa'
   p.textContent = 'pppppppppppppppppppppppppppppppppppppppp'
@@ -23,9 +31,9 @@ const seq = async () => {
   const pppp = new Hoge(() => p)
 
   const animate = new Animate('.animate')
-    // const container = document.querySelector('#barba-wrapper')
-    // console.log(container)
-    // animate.attach(a, container)
+  // const container = document.querySelector('#barba-wrapper')
+  // console.log(container)
+  // animate.attach(a, container)
 
   const container = document.querySelector('.foo')
   // const container = document.body

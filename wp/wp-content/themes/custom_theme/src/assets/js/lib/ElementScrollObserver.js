@@ -53,6 +53,10 @@ export default class ElementScrollObserver extends EventEmitter {
   }
 
   disconnect() {
+    this.removeAllListeners(ElementScrollObserver.SCROLL_UP)
+    this.removeAllListeners(ElementScrollObserver.SCROLL_UP_PRE)
+    this.removeAllListeners(ElementScrollObserver.SCROLL_DOWN)
+    this.removeAllListeners(ElementScrollObserver.SCROLL_DOWN_PRE)
     this.observer.disconnect()
   }
 

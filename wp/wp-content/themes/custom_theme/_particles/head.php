@@ -5,5 +5,5 @@
   <title>Document</title>
 
   <link rel="stylesheet" href="<?php the_styles_uri() ?>/styles.css">
-  <script type="text/javascript" src="<?php the_scripts_uri() ?>/app.js"></script>
+  <script type="text/javascript" src="<?php the_scripts_uri() ?>/app.js" defer></script>
 </head>
