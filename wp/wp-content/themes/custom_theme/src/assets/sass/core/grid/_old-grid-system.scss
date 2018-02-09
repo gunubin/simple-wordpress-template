@@ -1,0 +1,88 @@
+@mixin container($width: false, $gutter: $grid-gutter-width) {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left:  floor(($gutter / 2));
+  padding-right: ceil(($gutter / 2));
+  @if $width != false {
+    max-width:  $width;
+  }
+  @include clearfix;
+
+}
+
+@mixin row($gutter-width: $grid-gutter-width) {
+  margin-left: ceil(($gutter-width / -2));
+  margin-right: floor(($gutter-width / -2));
+  @include clearfix;
+}
+
+// Parses the first argument of span-columns()
+@function container-span($span: $span) {
+  @if length($span) == 3 {
+    $container-columns: nth($span, 3);
+    @return $container-columns;
+  } @else if length($span) == 2 {
+    $container-columns: nth($span, 2);
+    @return $container-columns;
+  }
+
+  @return $grid-columns;
+}
+
+@mixin col-block-container() {
+  letter-spacing: -0.38em;
+}
+@mixin col-block($span: $col of $grid-columns, $gutter-width: $grid-gutter-width) {
+  $columns: nth($span, 1);
+  $grid-columns: container-span($span);
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  min-height: 1px;
+  padding-left: ceil(($gutter-width / 2));
+  padding-right: floor(($gutter-width / 2));
+  @if ($columns > 0) {
+    width: percentage($columns / $grid-columns);
+  }
+}
+@mixin col($span: $col of $grid-columns, $gutter-width: $grid-gutter-width) {
+  $columns: nth($span, 1);
+  $grid-columns: container-span($span);
+  float: left;
+  position: relative;
+  min-height: 1px;
+  padding-left: ceil(($gutter-width / 2));
+  padding-right: floor(($gutter-width / 2));
+  @if ($columns > 0) {
+    width: percentage($columns / $grid-columns);
+  }
+}
+
+@mixin push($span: $col of $grid-columns) {
+  $columns: nth($span, 1);
+  $grid-columns: container-span($span);
+  @if ($columns > 0) {
+      left: percentage(($columns / $grid-columns));
+  }
+  @if ($columns == 0) {
+      left: auto;
+  }
+}
+
+@mixin pull($span: $col of $grid-columns) {
+  $columns: nth($span, 1);
+  $grid-columns: container-span($span);
+  @if ($columns > 0) {
+    right: percentage(($columns / $grid-columns));
+  }
+  @if ($columns == 0) {
+    right: auto;
+  }
+}
+
+@mixin offset($span: $col of $grid-columns) {
+  $columns: nth($span, 1);
+  $grid-columns: container-span($span);
+  margin-left: percentage(($columns / $grid-columns));
+}
+
