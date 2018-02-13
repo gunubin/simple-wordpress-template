@@ -65,12 +65,12 @@ export default class Progress {
     // 初回だけjsロード
     if (this.isFirst) {
       manifest = [
-        ...manifest,
         {
           id: 'app.js',
           src: `${config.jsPath}/app.js`,
           loadTimeout: DEFAULT_TIMEOUT
         },
+        ...manifest,
       ]
     }
     this.loader.load(manifest)
