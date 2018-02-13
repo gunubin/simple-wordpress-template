@@ -2,7 +2,7 @@ import Animate from './components/Animate'
 import ready from './lib/ready'
 import Mediaquery from './services/Mediaquery'
 import PageTransition from './services/PageTransition'
-import PreloaderAttacher from './preloader/PreloaderAttacher'
+import ImageLoader from './preloader/ImageLoader'
 
 const seq = async () => {
 
@@ -18,7 +18,7 @@ const seq = async () => {
     lg: 'screen and (min-width: 1181px)'
   })
 
-  const preloaderAttacher = new PreloaderAttacher()
+  const preloaderAttacher = new ImageLoader()
 
   mq.addListener(Mediaquery.CHANGE, mq => {
     // console.log(mq)

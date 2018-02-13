@@ -4,7 +4,11 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
 
+  <script type="text/javascript" charset="utf-8">
+    const config = window.config || {}
+    config.jsPath = '<?php the_scripts_uri(); ?>'
+    window.config = config
+  </script>
   <link rel="stylesheet" href="<?php the_styles_uri() ?>/styles.css">
-    <script type="text/javascript" src="<?php the_scripts_uri() ?>/preloader.js"></script>
-<!--  <script type="text/javascript" src="--><?php //the_scripts_uri() ?><!--/app.js" defer></script>-->
+  <script type="text/javascript" src="<?php the_scripts_uri() ?>/preloader.js"></script>
 </head>

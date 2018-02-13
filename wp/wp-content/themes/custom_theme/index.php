@@ -15,7 +15,7 @@
     </div>
 
     <script type="text/javascript" charset="utf-8">
-      window.preloader.start()
+      window.preloader.load()
     </script>
 
 

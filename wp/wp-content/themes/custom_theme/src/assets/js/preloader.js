@@ -1,6 +1,5 @@
 /* @flow */
-import 'whatwg-fetch'
-import Preloader from './preloader/Preloader'
+import Progress from './preloader/Progress'
 
 const global = window
-global.preloader = new Preloader()
+global.preloader = new Progress()

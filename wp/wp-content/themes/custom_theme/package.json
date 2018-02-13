@@ -9,8 +9,7 @@
     "mutation-observer": "^1.0.3",
     "pjax-api": "^3.20.1",
     "preload-js": "^0.6.3",
-    "throttle-debounce": "^1.0.1",
-    "whatwg-fetch": "^2.0.3"
+    "throttle-debounce": "^1.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.2.5",

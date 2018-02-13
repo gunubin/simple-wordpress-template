@@ -1,114 +1,64 @@
 /* @flow */
-import EventEmitter from 'events'
+import createjs from 'preload-js'
 
-export type StreamType = 'js' | 'image'
-
-type FetchObject = {
-  total: number,
-  process: () => void
+export const LOAD_TYPE = {
+  js: createjs.LoadQueue.JAVASCRIPT,
+  image: createjs.LoadQueue.IMAGE,
 }
+export type LoadType = $Keys<typeof LOAD_TYPE>
 
 type Manifest = {
   id: string,
-  type: StreamType,
-  url: string,
+  src: string,
 }
-
-export type FileLoadResult = {
-  result: {
-    url: string,
-    response: Response,
-  }
+type Queue = {
+  isComplete: boolean
 } | Manifest
 
-
-export default class StreamLoader extends EventEmitter {
+export default class Preloader {
   static PROGRESS = 'progress'
   static FILELOAD = 'fileload'
   static COMPLETE = 'complete'
 
-  total: number = 0
-  chunk: number = 0
-  items: FileLoadResult[] = []
-  manifest: Object = {}
+  maxConnections: number = 3
+  queues: Queue[] = []
+  loader: any
 
-  _getItem(manifest: Manifest) {
-    return this.items.find(i => i.id === manifest.id)
+  constructor() {
+    this.loader = new createjs.LoadQueue(process.env.NODE_ENV === 'production')
+    // this.loader = new createjs.LoadQueue(true)
+    this.loader.setMaxConnections(this.maxConnections)
+    this.loader.on('fileload', this.fileload.bind(this))
   }
 
-  _setup(res, manifest: Manifest): FetchObject {
-    const _this = this
-    const total = parseInt(res.headers.get('content-length'), 10)
-    console.log(total)
-    let filechunk = []
-    return {
-      total,
-      process: (): Promise<*> => {
-        let reader = res.body.getReader()
-        return reader.read().then(function processResult(result) {
-          if (result.done) {
-            const result = {
-              url: window.URL.createObjectURL(new Blob(filechunk)),
-              response: res,
-              total: total
-            }
-            const item = {...manifest, result}
-            _this.items.push(item)
-            _this.emit(StreamLoader.FILELOAD, item)
-            return res
-          }
-          _this.chunk += result.value.length
-          filechunk.push(result.value)
-          _this.emit(StreamLoader.PROGRESS, _this.chunk / _this.total)
-          return reader.read().then(processResult)
-        })
-      }
+  on(...args) {
+    this.loader.on(...args)
+  }
+
+  fileload(e) {
+    const {item} = e
+    const queue = this.queues.find(q => q.id === item.id)
+    if (queue) {
+      queue.type = item.type
+      queue.tag = item.tag
+      queue.isComplete = true
     }
-  }
+  };
 
-  setManifest(manifest: Manifest[]) {
-    manifest.map(m => {
-      this.manifest[m.id] = m
+  transformQueue(manifest: Manifest): Queue {
+    return manifest.map(m => {
+      return {
+        ...m,
+        type: '',
+        tag: '',
+        isComplete: false
+      }
     })
   }
 
-  start(manifest?: Manifest[]): Promise<*> {
-    this.setManifest(manifest)
-    console.log(this.manifest)
-    this.chunk = 0
-    return Promise.all(
-      Object.keys(this.manifest).map(key => {
-        const m = this.manifest[key]
-        const has = this._getItem(m)
-        if (has) {
-          return Promise.resolve(has)
-        }
-        return fetch(m.url).then(res => {
-          const o = this._setup(res, m)
-          return {
-            total: o.total,
-            process: o.process,
-          }
-        })
-      })
-    ).then(list => {
-      console.log(list)
-      this.total = list.reduce((a, b) => {
-        return a + b.total
-      }, 0)
-      console.log(this.total)
-      return Promise.all(
-        list.map(item => {
-          if (item.process) {
-            return item.process()
-          } else {
-            return Promise.resolve()
-          }
-        })
-      ).then(() => {
-        this.emit(StreamLoader.COMPLETE)
-      })
-    })
+  load(manifest: Manifest) {
+    this.queues = this.transformQueue(manifest)
+    this.loader.loadManifest(manifest)
   }
 
 }

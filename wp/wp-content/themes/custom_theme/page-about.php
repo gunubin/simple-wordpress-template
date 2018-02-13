@@ -10,7 +10,7 @@
     </div>
     
     <script type="text/javascript" charset="utf-8">
-      window.preloader.start()
+      window.preloader.load()
     </script>
 
     ...Put here the content you wish to change between pages...
