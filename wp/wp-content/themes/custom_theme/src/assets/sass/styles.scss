@@ -4,7 +4,17 @@
 
 
 .main {
+  position: relative;
   height: 300vh;
+}
+
+#barba-wrapper {
+  position: relative;
+}
+.barba-container {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .test-container {

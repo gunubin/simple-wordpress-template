@@ -1,6 +1,7 @@
 /* @flow */
 import MutationObserver from 'mutation-observer'
-import Pjax from '../services/Pjax'
+import Mediaquery from '../services/Mediaquery'
+import PageTransition from '../services/PageTransition'
 
 export type Selector = () => HTMLElement
 
@@ -14,7 +15,8 @@ export default class Component {
   in_document: boolean
   observer: MutationObserver
   selector: Selector
-  pjax: Pjax
+  pageTransition: PageTransition
+  mediaQuery: Mediaquery
 
   /**
    * constructor
@@ -25,19 +27,22 @@ export default class Component {
     if (selector) {
       this.attach(selector)
     }
-    this._injectPjax()
+    this._inject()
   }
 
-  _injectPjax() {
-    this.pjax = Pjax.create()
-    this.pjax.on(Pjax.FETCH, this.fetch.bind(this))
-    this.pjax.on(Pjax.LOADED, this.loaded.bind(this))
-    this.pjax.on(Pjax.LOADED, this.select.bind(this))
-    this.pjax.on(Pjax.COMPLETE, this.complete.bind(this))
+  _inject() {
+    this.pageTransition = PageTransition.create()
+    this.pageTransition.on(PageTransition.FETCH, this.fetch.bind(this))
+    this.pageTransition.on(PageTransition.LOADED, this.loaded.bind(this))
+    this.pageTransition.on(PageTransition.LOADED, this.select.bind(this))
+    this.pageTransition.on(PageTransition.COMPLETE, this.complete.bind(this))
+
+    this.mediaQuery = Mediaquery.create()
+    this.mediaQuery.on(Mediaquery.CHANGE, this.changeMediaquery.bind(this))
   }
 
   attach(selector: Selector) {
-    this.container = this.container || document.body
+    this.setContainer()
     this.selector = selector
     if (!this.selector) {
       throw new ReferenceError('selector is not found.')
@@ -47,28 +52,28 @@ export default class Component {
   }
 
   setContainer(container: HTMLElement) {
-    this.container = container
+    this.container = container || document.body
   }
 
   init() {
     this.in_document = this.container.contains(this.element)
     if (this.in_document) {
-      this.ready()
+      setImmediate(this.ready.bind(this))
     }
-    if(this.observer) {
+    if (this.observer) {
       this.observer.disconnect()
     }
     this.observer = new MutationObserver((mutations, observer) => {
       this.element = this.select()
       // TODO: パフォーマンス確認
       if (this.container.contains(this.element)) {
-        if (!this.in_document) {
-          this.mount()
-        }
+        // if (!this.in_document) { // すでにある場合は発火しない
+          setImmediate(this.mount.bind(this))
+        // }
         this.in_document = true
       } else if (this.in_document) {
         this.in_document = false
-        this.unMount()
+        setImmediate(this.unMount.bind(this))
       }
     })
 
@@ -89,19 +94,19 @@ export default class Component {
   }
 
   /**
-   * pjaxのfetch
+   * ページ遷移のfetch
    */
-  fetch(oldContainer: HTMLElement) {
+  fetch() {
   }
 
   /**
-   * pjaxのdomのロード完了
+   * ページ遷移のdomのロード完了
    */
   loaded() {
   }
 
   /**
-   * pjaxの完了(アニメーション含めた)
+   * ページ遷移の完了(アニメーション含めた)
    */
   complete() {
   }
@@ -123,6 +128,12 @@ export default class Component {
    * unMount
    */
   unMount() {
+  }
+
+  /**
+   * changeMediaquery
+   */
+  changeMediaquery() {
   }
 
 }

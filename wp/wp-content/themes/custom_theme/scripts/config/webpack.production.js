@@ -12,6 +12,9 @@ module.exports =
         app: [
           "babel-polyfill",
           paths.js.index
+        ],
+        preloader: [
+          paths.js.preloader
         ]
       },
       output: {

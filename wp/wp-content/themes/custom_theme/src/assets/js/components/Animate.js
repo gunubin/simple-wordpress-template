@@ -6,16 +6,10 @@ import Observer from '../lib/ElementScrollObserver'
 
 export default class Animate extends Component {
 
-  constructor(selector: Selector) {
+  constructor(selector) {
     super(selector)
 
-  }
-  
-  _init() {
     this.ob = new Observer(0, 0.10)
-    const obs = [...document.querySelectorAll('.ob')].map((e) => {
-      this.ob.observe(e)
-    })
     this.ob.on(Observer.SCROLL_UP, (e: HTMLElement) => {
       TweenMax.to(e.querySelector('.ob-inner'), 0.6, {ease: Sine.easeInOut, y: '0%'})
     })
@@ -31,13 +25,19 @@ export default class Animate extends Component {
     })
   }
 
+  _init() {
+    const obs = [...document.querySelectorAll('.ob')].map((e) => {
+      this. ob && this.ob.observe(e)
+    })
+  }
+
   ready() {
     TweenMax.to(this.element, 4, {x: 100, onComplete: () => {}})
     this._init()
   }
   
-  fetch(old) {
-    this.ob.disconnect()
+  fetch() {
+    this.ob && this.ob.disconnect()
   }
 
   loaded() {
@@ -50,7 +50,6 @@ export default class Animate extends Component {
   }
 
   unMount() {
-    console.log('animate unmount!!!!!!!!')
   }
 
   complete() {

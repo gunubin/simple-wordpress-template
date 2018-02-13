@@ -5,6 +5,9 @@ import EventEmitter from 'events'
 export default class ElementScrollObserver extends EventEmitter {
   element: HTMLElement | null
   fps: number
+  margin: number
+  observer: IntersectionObserver
+  target: ?HTMLElement
 
   static SCROLL_UP: string = 'scroll-up'
   static SCROLL_UP_PRE: string = 'scroll-up-pre'
@@ -52,13 +55,17 @@ export default class ElementScrollObserver extends EventEmitter {
     this.observer.unobserve(element)
   }
 
-  disconnect() {
+  removeListeners() {
     this.removeAllListeners(ElementScrollObserver.SCROLL_UP)
     this.removeAllListeners(ElementScrollObserver.SCROLL_UP_PRE)
     this.removeAllListeners(ElementScrollObserver.SCROLL_DOWN)
     this.removeAllListeners(ElementScrollObserver.SCROLL_DOWN_PRE)
+  }
+
+  disconnect() {
     this.observer.disconnect()
   }
+
 
 }
 

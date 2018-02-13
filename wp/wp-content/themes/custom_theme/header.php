@@ -9,9 +9,13 @@
 <!-- wrapper -->
 <div class="wrapper">
 
+  <div class="progress-bar"></div>
+
   <!-- header -->
   <header class="header">
     header
+    <a href="/">top link</a>
+    <a href="/about">about link</a>
   </header>
   <!-- /header -->
 

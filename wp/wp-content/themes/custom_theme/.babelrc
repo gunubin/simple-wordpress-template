@@ -1,17 +1,13 @@
 {
   "presets": [
-    ["env",
-      {
-        "modules": false
-      }
-    ],
+    "env",
+    "react",
     "stage-0"
-
   ],
   "plugins": [
-    "syntax-flow",
-    "transform-flow-strip-types",
     "transform-class-properties",
-    "transform-decorators"
+    "transform-decorators",
+    "transform-react-constant-elements",
+    "transform-react-inline-elements"
   ]
 }

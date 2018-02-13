@@ -13,11 +13,14 @@ module.exports =
         app: [
           "babel-polyfill",
           paths.js.index
+        ],
+        preloader: [
+          paths.js.preloader
         ]
       },
       output: {
         path: paths.js.build,
-        filename: 'app.js',
+        filename: '[name].js',
         publicPath: '/'
       },
       plugins: [
@@ -26,6 +29,9 @@ module.exports =
           'process.env.BROWSER': true,
         }),
         new webpack.NamedModulesPlugin(),
+        new webpack.optimize.CommonsChunkPlugin({
+          name: 'preloader'
+        }),
         new webpack.NoEmitOnErrorsPlugin(),
       ],
     }

@@ -3,6 +3,7 @@ const timelinePromise = (timeline) => {
     timeline.eventCallback("onComplete", function () {
       resolve(true)
     })
+    timeline.play()
   })
 }
 

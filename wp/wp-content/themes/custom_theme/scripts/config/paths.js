@@ -15,6 +15,7 @@ module.exports = {
   image: resolveApp('assets/images'),
   js: {
     index: resolveApp('src/assets/js/index.js'),
+    preloader: resolveApp('src/assets/js/preloader.js'),
     build: resolveApp('assets/js')
   },
   html: resolveApp('public/index.html')

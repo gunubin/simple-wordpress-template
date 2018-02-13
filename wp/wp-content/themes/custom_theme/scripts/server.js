@@ -8,7 +8,15 @@ bs.init({
   // },
   // port: PORT || 3000,
   proxy: 'http://swt.localhost',
-  open: false
+  open: false,
+  snippetOptions: {
+    rule: {
+      match: /<\/head>/i,
+      fn: function (snippet, match) {
+        return snippet + match
+      }
+    }
+  },
 })
 
 bs.watch(`${paths.build}/**/*.*`).on('change', file => {
