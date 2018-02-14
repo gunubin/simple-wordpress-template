@@ -1,7 +1,8 @@
+import type {Queue} from './Preloader'
 /* @flow */
 import Preloader, {LOAD_TYPE} from './Preloader'
 
-const DEFAULT_TIMEOUT: number= 30 * 1000
+const DEFAULT_TIMEOUT: number = 30 * 1000
 
 export default class Progress {
 
@@ -25,17 +26,20 @@ export default class Progress {
   }
 
   attachAppJs(scriptTag: HTMLElement) {
-    document.body.appendChild(scriptTag)
+    const {body} = document
+    body && body.appendChild(scriptTag)
   }
 
   progress(percent: number) {
     console.log(percent)
     const p = this.select()
-    p.style.opacity = 1
-    p.style.width = `${percent * 100}%`
+    if (p) {
+      p.style.opacity = '1'
+      p.style.width = `${percent * 100}%`
+    }
   }
 
-  fileload(e) {
+  fileload(e: any) {
     const {item} = e
     console.log(item)
     if (item.type === LOAD_TYPE.js) {
@@ -45,7 +49,9 @@ export default class Progress {
 
   complete() {
     const p = this.select()
-    p.style.opacity = 0
+    if (p) {
+      p.style.opacity = '0'
+    }
   }
 
   getManifest() {
@@ -67,7 +73,7 @@ export default class Progress {
       manifest = [
         {
           id: 'app.js',
-          src: `${config.jsPath}/app.js`,
+          src: `${config.jsRelativePath}/app.js`,
           loadTimeout: DEFAULT_TIMEOUT
         },
         ...manifest,
@@ -77,11 +83,11 @@ export default class Progress {
     this.isFirst = false
   }
 
-  get loaded() {
+  get loaded(): boolean {
     return this.loader.loader.loaded
   }
 
-  get queues() {
+  get queues(): Queue[] {
     return this.loader.queues
   }
 }

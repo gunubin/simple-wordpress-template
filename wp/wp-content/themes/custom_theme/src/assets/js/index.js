@@ -3,8 +3,11 @@ import ready from './lib/ready'
 import Mediaquery from './services/Mediaquery'
 import PageTransition from './services/PageTransition'
 import ImageLoader from './preloader/ImageLoader'
+import {configure} from './config'
 
 const seq = async () => {
+
+  configure()
 
   await ready()
 

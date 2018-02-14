@@ -5,10 +5,11 @@ import {LOAD_TYPE} from './Preloader'
 export default class ImageLoader {
   global: window
   pjax: Pjax
+  target: HTMLElement | Document
 
   constructor() {
     this.global = window
-    this.target = document.documentElement
+    this.target = document
 
     this.pjax = Pjax.create()
     this.pjax.on(Pjax.READY, this.loaded.bind(this))
@@ -22,7 +23,7 @@ export default class ImageLoader {
 
   start() {
     const elements = [...this.target.querySelectorAll('.js-preload')]
-    elements.map(e => {
+    elements.map((e: HTMLElement) => {
       const {src} = e.dataset
       const preloadItems = this.global.preloader.queues
       const item = preloadItems.find(i => i.src === src)

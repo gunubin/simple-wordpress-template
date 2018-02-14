@@ -1,7 +1,7 @@
 /* @flow */
 import EventEmitter from 'events'
 
-let singleton = null
+let singleton: ?Mediaquery = null
 
 export default class Mediaquery extends EventEmitter {
   screenMode: string
@@ -9,11 +9,11 @@ export default class Mediaquery extends EventEmitter {
 
   static CHANGE: string = 'change'
 
-  static create(vars: Object) {
+  static create(vars?: Object) {
     if (singleton) {
       return singleton
     }
-    singleton = new Mediaquery(vars)
+    singleton = new Mediaquery(vars || {})
     return singleton
   }
 

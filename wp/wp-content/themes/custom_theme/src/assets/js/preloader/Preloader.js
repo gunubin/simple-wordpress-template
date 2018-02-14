@@ -6,14 +6,15 @@ export const LOAD_TYPE = {
   image: createjs.LoadQueue.IMAGE,
 }
 export type LoadType = $Keys<typeof LOAD_TYPE>
-
-type Manifest = {
+export type Manifest = {
   id: string,
   src: string,
 }
-type Queue = {
-  isComplete: boolean
-} | Manifest
+export type Queue = Manifest & {
+  type: ?string,
+  tag: ?HTMLElement,
+  isComplete: boolean,
+}
 
 export default class Preloader {
   static PROGRESS = 'progress'
@@ -31,11 +32,11 @@ export default class Preloader {
     this.loader.on('fileload', this.fileload.bind(this))
   }
 
-  on(...args) {
+  on(...args: any[]) {
     this.loader.on(...args)
   }
 
-  fileload(e) {
+  fileload(e: any) {
     const {item} = e
     const queue = this.queues.find(q => q.id === item.id)
     if (queue) {
@@ -45,18 +46,18 @@ export default class Preloader {
     }
   };
 
-  transformQueue(manifest: Manifest): Queue {
-    return manifest.map(m => {
+  transformQueue(manifest: Manifest[]): Queue[] {
+    return manifest.map((m: Manifest) => {
       return {
         ...m,
         type: '',
-        tag: '',
+        tag: null,
         isComplete: false
       }
     })
   }
 
-  load(manifest: Manifest) {
+  load(manifest: Manifest[]) {
     this.queues = this.transformQueue(manifest)
     this.loader.loadManifest(manifest)
   }

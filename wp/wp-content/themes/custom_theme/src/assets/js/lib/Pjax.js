@@ -1,11 +1,12 @@
 /* @flow */
 import EventEmitter from 'events'
 // FIXME: webpackに対応したか確認
+// $FlowFixMe webpackに対応したか確認
 const PjaxBase = require("exports-loader?require!pjax-api")('pjax-api').Pjax;
 
 type Params = {
-  selector: string,
-  wait: number
+  selector?: string,
+  wait?: number
 }
 
 let singleton = null
@@ -51,11 +52,11 @@ export default class Pjax extends EventEmitter {
     })
   }
 
-  getContainer(): HTMLElement {
+  getContainer(): ?HTMLElement {
     return document.querySelector(this.selector)
   }
 
-  start({selector = '#pjax-container', ...params}: Params): PjaxBase {
+  start({selector = '#pjax-container', wait = 0, ...params}: Params): PjaxBase {
     this.selector = selector
     return new PjaxBase({
       areas: [
@@ -65,7 +66,7 @@ export default class Pjax extends EventEmitter {
       link: 'a:not([target]):not([href="javascript:void(0)"])',
       fetch: {
         timeout: 3000 * 10,
-        wait: params.wait,
+        wait: wait,
       },
       update: {
         css: false,

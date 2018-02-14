@@ -1,29 +1,50 @@
 /* @flow */
-import MutationObserver from 'mutation-observer'
 import Mediaquery from '../services/Mediaquery'
 import PageTransition from '../services/PageTransition'
+import MountObserver from './MountObserver'
+import Window from './Window'
 
-export type Selector = () => HTMLElement
+export type Selector = string | () => HTMLElement
+
+export type Options = {
+  mutationObservable: boolean,
+  pageTransitable: boolean,
+  mediaQuery: boolean,
+}
+
+const DEFAULT_OPTIONS: Options = {
+  mutationObservable: false,
+  pageTransitable: true,
+  mediaQuery: true,
+}
 
 /**
  * Component Class
  */
 export default class Component {
-  container: HTMLElement
+  container: ?HTMLElement
   element: ?HTMLElement
   className: string
-  in_document: boolean
-  observer: MutationObserver
   selector: Selector
   pageTransition: PageTransition
   mediaQuery: Mediaquery
+  mountObserver: MountObserver
+  options: Options
+  window: Window
+
 
   /**
    * constructor
    *
    * @param selector - string
+   * @param mutationObservable
+   * @param options
    */
-  constructor(selector: Selector) {
+  constructor(selector: Selector, options: Options) {
+    this.options = {
+      ...DEFAULT_OPTIONS,
+      options,
+    }
     if (selector) {
       this.attach(selector)
     }
@@ -39,6 +60,9 @@ export default class Component {
 
     this.mediaQuery = Mediaquery.create()
     this.mediaQuery.on(Mediaquery.CHANGE, this.changeMediaquery.bind(this))
+
+    this.window = Window.create()
+    this.window.on(Window.CHANGE_ORIENTATION, this.changeOrientation.bind(this))
   }
 
   attach(selector: Selector) {
@@ -48,39 +72,15 @@ export default class Component {
       throw new ReferenceError('selector is not found.')
     }
     this.element = this.select()
-    this.init()
+    if (this.options.mutationObservable && this.element && this.container) {
+      this.mountObserver = new MountObserver(this.element, this.container)
+      this.mountObserver.on(MountObserver.MOUNT, this.mount.bind(this))
+      this.mountObserver.on(MountObserver.UNMOUNT, this.unMount.bind(this))
+    }
   }
 
-  setContainer(container: HTMLElement) {
+  setContainer(container?: HTMLElement) {
     this.container = container || document.body
-  }
-
-  init() {
-    this.in_document = this.container.contains(this.element)
-    if (this.in_document) {
-      setImmediate(this.ready.bind(this))
-    }
-    if (this.observer) {
-      this.observer.disconnect()
-    }
-    this.observer = new MutationObserver((mutations, observer) => {
-      this.element = this.select()
-      // TODO: パフォーマンス確認
-      if (this.container.contains(this.element)) {
-        // if (!this.in_document) { // すでにある場合は発火しない
-          setImmediate(this.mount.bind(this))
-        // }
-        this.in_document = true
-      } else if (this.in_document) {
-        this.in_document = false
-        setImmediate(this.unMount.bind(this))
-      }
-    })
-
-    this.observer.observe(this.container, {
-      childList: true,
-      subtree: true
-    })
   }
 
   /**
@@ -90,7 +90,7 @@ export default class Component {
     if (typeof this.selector === 'function') {
       return this.selector()
     }
-    return this.container.querySelector(this.selector)
+    return this.container && this.container.querySelector(this.selector)
   }
 
   /**
@@ -134,6 +134,12 @@ export default class Component {
    * changeMediaquery
    */
   changeMediaquery() {
+  }
+
+  /**
+   * changeOrientation
+   */
+  changeOrientation() {
   }
 
 }

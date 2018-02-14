@@ -3,5 +3,9 @@
 [include]
 
 [libs]
+./src/assets/js/flow-typed
 
 [options]
+suppress_type=$FlowIssue
+suppress_type=$FlowFixMe
+suppress_type=$FixMe
