@@ -1,6 +1,6 @@
 import Component from '../lib/Component'
 import {TweenMax, Sine} from 'gsap'
-import Observer from '../lib/ElementScrollObserver'
+import Observer from '../services/ViewportObserver'
 
 export default class Animate extends Component {
 
@@ -21,8 +21,11 @@ export default class Animate extends Component {
     this.ob.on(Observer.SCROLL_DOWN_PRE, (e: HTMLElement) => {
       TweenMax.set(e.querySelector('.ob-inner'), {y: '-50%'})
     })
-    
-    TweenMax.to(this.element, 4, {x: 100, onComplete: () => {}})
+
+
+    if (this.element) {
+      TweenMax.to(this.element, 4, {x: 100, onComplete: () => {}})
+    }
     this._init()
   }
 
@@ -44,6 +47,7 @@ export default class Animate extends Component {
   }
 
   mount() {
+    console.log(this.element)
     TweenMax.to(this.element, 4, {x: -100, onComplete: () => {}})
     // TweenMax.to(this.element, 4, {x: 100, onComplete: () => {}})
   }

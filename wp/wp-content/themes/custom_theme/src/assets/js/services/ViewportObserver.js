@@ -2,7 +2,7 @@
 import 'intersection-observer'
 import EventEmitter from 'events'
 
-export default class ElementScrollObserver extends EventEmitter {
+export default class ViewportObserver extends EventEmitter {
   element: HTMLElement | null
   fps: number
   margin: number
@@ -28,16 +28,16 @@ export default class ElementScrollObserver extends EventEmitter {
         const isDown = isBelow && entry.isIntersecting
         if (isUp) {
           if (entry.intersectionRatio > ratio) {
-            this.emit(ElementScrollObserver.SCROLL_UP, entry.target)
+            this.emit(ViewportObserver.SCROLL_UP, entry.target)
           } else {
-            this.emit(ElementScrollObserver.SCROLL_UP_PRE, entry.target)
+            this.emit(ViewportObserver.SCROLL_UP_PRE, entry.target)
           }
         }
         if (isDown) {
           if (entry.intersectionRatio > ratio) {
-            this.emit(ElementScrollObserver.SCROLL_DOWN, entry.target)
+            this.emit(ViewportObserver.SCROLL_DOWN, entry.target)
           } else {
-            this.emit(ElementScrollObserver.SCROLL_DOWN_PRE, entry.target)
+            this.emit(ViewportObserver.SCROLL_DOWN_PRE, entry.target)
           }
         }
       }
@@ -56,10 +56,10 @@ export default class ElementScrollObserver extends EventEmitter {
   }
 
   removeListeners() {
-    this.removeAllListeners(ElementScrollObserver.SCROLL_UP)
-    this.removeAllListeners(ElementScrollObserver.SCROLL_UP_PRE)
-    this.removeAllListeners(ElementScrollObserver.SCROLL_DOWN)
-    this.removeAllListeners(ElementScrollObserver.SCROLL_DOWN_PRE)
+    this.removeAllListeners(ViewportObserver.SCROLL_UP)
+    this.removeAllListeners(ViewportObserver.SCROLL_UP_PRE)
+    this.removeAllListeners(ViewportObserver.SCROLL_DOWN)
+    this.removeAllListeners(ViewportObserver.SCROLL_DOWN_PRE)
   }
 
   disconnect() {

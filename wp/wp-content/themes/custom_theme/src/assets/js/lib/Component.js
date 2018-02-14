@@ -1,8 +1,8 @@
 /* @flow */
 import Mediaquery from '../services/Mediaquery'
 import PageTransition from '../services/PageTransition'
-import MountObserver from './MountObserver'
-import Window from './Window'
+import MountObserver from '../services/MountObserver'
+import Window from '../services/Window'
 
 export type Selector = string | () => HTMLElement
 

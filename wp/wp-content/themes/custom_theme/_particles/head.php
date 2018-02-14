@@ -6,7 +6,7 @@
 
   <script type="text/javascript" charset="utf-8">
     var config = window.config || {}
-    config.jsRelativePath = '<?php the_scripts_uri(); ?>'
+    config.jsRelativeUrl = '<?php the_scripts_uri(); ?>'
     window.config = config
   </script>
   <link rel="stylesheet" href="<?php the_styles_uri() ?>/styles.css">

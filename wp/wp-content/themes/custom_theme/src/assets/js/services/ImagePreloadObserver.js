@@ -1,27 +1,25 @@
 /* @flow */
-import Pjax from '../lib/Pjax'
-import {LOAD_TYPE} from './Preloader'
+import {LOAD_TYPE} from '../preloader/Preloader'
+import PageTransition from './PageTransition'
 
-export default class ImageLoader {
+export default class ImagePreloadObserver {
   global: window
-  pjax: Pjax
+  pageTransition: PageTransition
   target: HTMLElement | Document
 
   constructor() {
     this.global = window
     this.target = document
 
-    this.pjax = Pjax.create()
-    this.pjax.on(Pjax.READY, this.loaded.bind(this))
-
-    this.global.preloader.on('complete', () => {
-      this.start()
-    })
-    
-    this.ready()
+    this.pageTransition = PageTransition.create()
+    this.pageTransition.on(PageTransition.LOADED, this._loadedPageTransition.bind(this))
   }
 
-  start() {
+  _loadedPageTransition() {
+    this.global.preloader.load()
+  }
+
+  _attach() {
     const elements = [...this.target.querySelectorAll('.js-preload')]
     elements.map((e: HTMLElement) => {
       const {src} = e.dataset
@@ -33,14 +31,13 @@ export default class ImageLoader {
     })
   }
 
-  ready() {
+  observe() {
+    this.global.preloader.on('complete', () => {
+      this._attach()
+    })
     if (this.global.preloader.loaded) {
-      this.start()
+      this._attach()
     }
-  }
-
-  loaded() {
-    this.global.preloader.load()
   }
 
 }

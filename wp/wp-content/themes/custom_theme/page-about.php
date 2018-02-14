@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 
 <div class="main">
-  <div id="pjax-container">
+  <div id="page-transition">
     <div class="kv">
       <img class="js-preload" data-src="<?php the_images_uri(); ?>/kv4.jpg" alt=""/>
     </div>

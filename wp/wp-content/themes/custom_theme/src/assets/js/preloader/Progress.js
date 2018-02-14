@@ -1,5 +1,5 @@
-import type {Queue} from './Preloader'
 /* @flow */
+import type {Queue} from './Preloader'
 import Preloader, {LOAD_TYPE} from './Preloader'
 
 const DEFAULT_TIMEOUT: number = 30 * 1000
@@ -17,7 +17,7 @@ export default class Progress {
     this.loader.on(Preloader.COMPLETE, this.complete.bind(this))
   }
 
-  on(...args) {
+  on(...args: any[]) {
     this.loader.on(...args)
   }
 
@@ -31,7 +31,6 @@ export default class Progress {
   }
 
   progress(percent: number) {
-    console.log(percent)
     const p = this.select()
     if (p) {
       p.style.opacity = '1'
@@ -41,7 +40,6 @@ export default class Progress {
 
   fileload(e: any) {
     const {item} = e
-    console.log(item)
     if (item.type === LOAD_TYPE.js) {
       this.attachAppJs(item.tag)
     }
@@ -73,7 +71,7 @@ export default class Progress {
       manifest = [
         {
           id: 'app.js',
-          src: `${config.jsRelativePath}/app.js`,
+          src: `${config.jsRelativeUrl}/app.js`,
           loadTimeout: DEFAULT_TIMEOUT
         },
         ...manifest,

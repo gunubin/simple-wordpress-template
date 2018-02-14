@@ -1,3 +1,3 @@
 declare var config: {
-  jsRelativePath: string
+  jsRelativeUrl: string
 };

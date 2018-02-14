@@ -9,6 +9,7 @@ bs.init({
   // port: PORT || 3000,
   proxy: 'http://swt.localhost',
   open: false,
+  notify: false,
   snippetOptions: {
     rule: {
       match: /<\/head>/i,

@@ -3,7 +3,7 @@
 
 <div class="main">
 
-  <div id="pjax-container">
+  <div id="page-transition">
 
     <div class="kv-row">
       <div class="kv">

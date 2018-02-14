@@ -2,7 +2,7 @@
 import EventEmitter from 'events'
 import {Power2, TimelineLite, TweenMax} from "gsap"
 import Pjax from '../lib/Pjax'
-import timelinePromise from '../lib/timelinePromise'
+import {timelinePromise} from '../lib/promisfy'
 
 let singleton = null
 
@@ -30,8 +30,9 @@ export default class PageTransition extends EventEmitter {
     this.durationOut = 300
   }
 
-  start() {
+  start(containerSelector: string) {
     this.pjax.start({
+      selector: containerSelector,
       wait: this.durationOut
     })
   }
@@ -47,14 +48,14 @@ export default class PageTransition extends EventEmitter {
     this.emit(PageTransition.COMPLETE)
   }
 
-  async out(): Promise<*> {
+  async out(): Promise<TimelineLite> {
     const container = this.pjax.getContainer()
     const tl = new TimelineLite({paused: true})
     tl.to(container, this.durationOut / 1000, {opacity: 0})
     return timelinePromise(tl)
   }
 
-  async in() {
+  async in(): Promise<TimelineLite> {
     const container = this.pjax.getContainer()
     const tl = new TimelineLite({paused: true})
     tl.fromTo(container, this.durationOut / 1000, {opacity: 0}, {opacity: 1})

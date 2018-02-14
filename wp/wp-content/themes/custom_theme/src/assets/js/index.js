@@ -1,41 +1,34 @@
+import {TweenLite} from 'gsap'
 import Animate from './components/Animate'
-import ready from './lib/ready'
+import {domLoaded} from './lib/promisfy'
 import Mediaquery from './services/Mediaquery'
 import PageTransition from './services/PageTransition'
-import ImageLoader from './preloader/ImageLoader'
 import {configure} from './config'
+import ImagePreloadObserver from './services/ImagePreloadObserver'
+import DebugMode, {DEBUG_MODE} from './services/DebugMode'
 
-const seq = async () => {
+const applicationSequence = async () => {
+
+  // 非アクティブ時からフォーカスした際のアニメーションを修正
+  TweenLite.lagSmoothing(0);
 
   configure()
 
-  await ready()
+  await domLoaded()
 
-  const pt = PageTransition.create()
-  pt.start()
+  const debugMode = DebugMode.getMode()
+  if (debugMode === DEBUG_MODE.development) {
+    DebugMode.render(debugMode)
+  }
 
-  const mq = Mediaquery.create({
-    xs: 'screen and (max-width: 767px)',
-    sm: 'screen and (min-width: 768px) and (max-width: 1024px)',
-    md: 'screen and (min-width: 1025px) and (max-width: 1180px)',
-    lg: 'screen and (min-width: 1181px)'
-  })
+  PageTransition.create().start(config.pageTransitionContainer)
 
-  const preloaderAttacher = new ImageLoader()
+  Mediaquery.create(config.mediaQuery)
 
-  mq.addListener(Mediaquery.CHANGE, mq => {
-    // console.log(mq)
-  })
+  const imagePreloadObserve = new ImagePreloadObserver()
+  imagePreloadObserve.observe()
 
   const animate = new Animate('.animate')
-
-  const container = document.querySelector('.foo')
-  // const container = document.body
-  // const progressBar = new ProgressBar('.progress-bar')
-
-
 }
 
-seq()
-
-
+applicationSequence()

@@ -36,7 +36,6 @@ export default class Pjax extends EventEmitter {
   _setup() {
     // http://falsandtru.github.io/pjax-api/api/event/
     window.addEventListener('pjax:fetch', e => {
-      console.log('pljax.fetch')
       this.emit(Pjax.FETCH, e)
     })
     document.addEventListener('pjax:content', e => {
@@ -44,7 +43,6 @@ export default class Pjax extends EventEmitter {
       this.emit(Pjax.CONTENT, e)
     })
     document.addEventListener('pjax:ready', e => {
-      console.log('pljax.ready')
       this.emit(Pjax.READY, e)
     })
     window.addEventListener('pjax:load', e => {
@@ -56,7 +54,7 @@ export default class Pjax extends EventEmitter {
     return document.querySelector(this.selector)
   }
 
-  start({selector = '#pjax-container', wait = 0, ...params}: Params): PjaxBase {
+  start({selector, wait = 0, ...params}: Params): PjaxBase {
     this.selector = selector
     return new PjaxBase({
       areas: [
