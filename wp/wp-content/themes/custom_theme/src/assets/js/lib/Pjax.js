@@ -5,7 +5,7 @@ import EventEmitter from 'events'
 const PjaxBase = require("exports-loader?require!pjax-api")('pjax-api').Pjax;
 
 type Params = {
-  selector?: string,
+  selector: string,
   wait?: number
 }
 
@@ -54,11 +54,11 @@ export default class Pjax extends EventEmitter {
     return document.querySelector(this.selector)
   }
 
-  start({selector, wait = 0, ...params}: Params): PjaxBase {
-    this.selector = selector
+  start({wait = 0, ...params}: Params): PjaxBase {
+    this.selector = params.selector
     return new PjaxBase({
       areas: [
-        selector, // try to use the first query.
+        this.selector, // try to use the first query.
         'body', // fallback.
       ],
       link: 'a:not([target]):not([href="javascript:void(0)"])',

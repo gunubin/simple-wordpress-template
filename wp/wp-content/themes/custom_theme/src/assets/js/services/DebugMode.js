@@ -6,12 +6,12 @@ export const DEBUG_MODE = {
   production: '0',
 }
 
-type DebugModeType = $Keys<typeof DEBUG_MODE>
+type DebugModeType = $Values<typeof DEBUG_MODE>
 
 export default class DebugMode {
 
   static getMode(): DebugModeType {
-    let mode: number = DEBUG_MODE.production
+    let mode = DEBUG_MODE.production
     if (process.env.NODE_ENV === 'development') {
       const Cookie = require('es-cookie')
       const d = Utils.getParams('d');
@@ -29,17 +29,19 @@ export default class DebugMode {
     Object.assign(notice.style, {
       padding: '0.2em 0.5em',
       position: 'fixed',
-      left: 0,
-      bottom: 0,
+      left: '0',
+      bottom: '0',
       color: '#333',
       backgroundColor: 'rgba(0, 0, 0, 0.2)',
       cursor: 'default',
       transition: '0.2s ease'
     })
     notice.textContent = `Debug Mode: ${mode}`
-    document.body.appendChild(notice)
-    notice.addEventListener('mouseenter', () => notice.style.opacity = 0)
-    notice.addEventListener('mouseleave', () => notice.style.opacity = 1)
+    if (document.body) {
+      document.body.appendChild(notice)
+    }
+    notice.addEventListener('mouseenter', () => notice.style.opacity = '0')
+    notice.addEventListener('mouseleave', () => notice.style.opacity = '1')
   }
 
 }
