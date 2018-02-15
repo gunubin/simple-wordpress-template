@@ -22,10 +22,10 @@ export default class ViewportObserver extends EventEmitter {
     const threshold = [0, ratio]
     this.observer = new IntersectionObserver(entries => {
       for (const entry of entries) {
-        const isAbove = entry.boundingClientRect.y > entry.rootBounds.y
+        const isAbove = entry.boundingClientRect.y > entry.rootBounds.top
         const isBelow = !isAbove
-        const isUp = isAbove && entry.isIntersecting
-        const isDown = isBelow && entry.isIntersecting
+        const isUp = isAbove
+        const isDown = isBelow
         if (isUp) {
           if (entry.intersectionRatio > ratio) {
             this.emit(ViewportObserver.SCROLL_UP, entry.target)
