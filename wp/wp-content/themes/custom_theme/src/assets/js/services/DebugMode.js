@@ -14,18 +14,24 @@ export default class DebugMode {
     let mode = DEBUG_MODE.production
     if (process.env.NODE_ENV === 'development') {
       const Cookie = require('es-cookie')
-      const d = Utils.getParams('d');
+      const d = Utils.getParams('d')
       if (d) {
-        Cookie.set('debug-mode', d, {path: '/'});
+        Cookie.set('debug-mode', d, {path: '/'})
       }
-      mode = Cookie.get('debug-mode') || d;
+      mode = Cookie.get('debug-mode') || d
       return mode || DEBUG_MODE.production
     }
     return mode
   }
 
-  static render(mode: string) {
+  static render() {
+    const mode = DebugMode.getMode()
+    if (mode === DEBUG_MODE.production) {
+      return
+    }
     const notice = document.createElement('div')
+    const modeName = Object.keys(DEBUG_MODE).find(m => DEBUG_MODE[m] === mode) || ''
+    notice.textContent = `Debug Mode: ${modeName}`
     Object.assign(notice.style, {
       padding: '0.2em 0.5em',
       position: 'fixed',
@@ -36,10 +42,7 @@ export default class DebugMode {
       cursor: 'default',
       transition: '0.2s ease'
     })
-    notice.textContent = `Debug Mode: ${mode}`
-    if (document.body) {
-      document.body.appendChild(notice)
-    }
+    document.body && document.body.appendChild(notice)
     notice.addEventListener('mouseenter', () => notice.style.opacity = '0')
     notice.addEventListener('mouseleave', () => notice.style.opacity = '1')
   }

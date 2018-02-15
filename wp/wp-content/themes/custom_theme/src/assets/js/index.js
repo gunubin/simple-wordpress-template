@@ -4,31 +4,33 @@ import {domLoaded} from './lib/promisfy'
 import Mediaquery from './services/Mediaquery'
 import PageTransition from './services/PageTransition'
 import {configure} from './config'
-import ImagePreloadObserver from './services/ImagePreloadObserver'
-import DebugMode, {DEBUG_MODE} from './services/DebugMode'
+import PreloadAttachment from './services/PreloadAttachment'
+import DebugMode from './services/DebugMode'
+import Indicator from './components/Indicator'
+import ComponentGenerator from './lib/ComponentGenerator'
 
 const applicationSequence = async () => {
 
   // 非アクティブ時からフォーカスした際のアニメーションを修正
-  TweenLite.lagSmoothing(0);
+  TweenLite.lagSmoothing(0)
 
   configure()
 
   await domLoaded()
 
-  const debugMode = DebugMode.getMode()
-  if (debugMode === DEBUG_MODE.development) {
-    DebugMode.render(debugMode)
-  }
+  DebugMode.render()
 
   PageTransition.create().start(config.pageTransitionContainer)
 
   Mediaquery.create(config.mediaQuery)
 
-  const imagePreloadObserve = new ImagePreloadObserver()
-  imagePreloadObserve.observe()
+  const preloadAttachment = new PreloadAttachment(config.preloadSelector)
 
-  const animate = new Animate('.animate')
+  new ComponentGenerator({
+    '.animate': Animate,
+    '.progress': Indicator,
+  })
+
 }
 
 applicationSequence()

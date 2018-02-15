@@ -25,41 +25,42 @@ export default class PageTransition extends EventEmitter {
   constructor() {
     super()
     this.pjax = Pjax.create()
-    this.pjax.on(Pjax.FETCH, this.fetch.bind(this))
-    this.pjax.on(Pjax.READY, this.loaded.bind(this))
+    this.pjax.on(Pjax.FETCH, this._fetch.bind(this))
+    this.pjax.on(Pjax.READY, this._loaded.bind(this))
     this.durationOut = 300
+  }
+
+  async _fetch() {
+    this.emit(PageTransition.FETCH)
+    await this._out()
+  }
+
+  async _loaded() {
+    this.emit(PageTransition.LOADED)
+    await this._in()
+    this.emit(PageTransition.COMPLETE)
+  }
+
+  async _out(): Promise<TimelineLite> {
+    const container = this.pjax.getContainer()
+    const tl = new TimelineLite({paused: true})
+    // tl.to(container, this.durationOut / 1000, {opacity: 0})
+    // tl.to(container, 0, {opacity: 0})
+    return timelinePromise(tl)
+  }
+
+  async _in(): Promise<TimelineLite> {
+    const container = this.pjax.getContainer()
+    const tl = new TimelineLite({paused: true})
+    // tl.fromTo(container, this.durationOut / 1000, {opacity: 0}, {opacity: 1})
+    return timelinePromise(tl)
   }
 
   start(containerSelector: string) {
     this.pjax.start({
       selector: containerSelector,
-      wait: this.durationOut
+      wait: 0
     })
-  }
-
-  async fetch() {
-    this.emit(PageTransition.FETCH)
-    await this.out()
-  }
-
-  async loaded() {
-    this.emit(PageTransition.LOADED)
-    await this.in()
-    this.emit(PageTransition.COMPLETE)
-  }
-
-  async out(): Promise<TimelineLite> {
-    const container = this.pjax.getContainer()
-    const tl = new TimelineLite({paused: true})
-    tl.to(container, this.durationOut / 1000, {opacity: 0})
-    return timelinePromise(tl)
-  }
-
-  async in(): Promise<TimelineLite> {
-    const container = this.pjax.getContainer()
-    const tl = new TimelineLite({paused: true})
-    tl.fromTo(container, this.durationOut / 1000, {opacity: 0}, {opacity: 1})
-    return timelinePromise(tl)
   }
 
 }

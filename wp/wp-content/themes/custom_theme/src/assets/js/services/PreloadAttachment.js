@@ -1,18 +1,26 @@
 /* @flow */
 import {LOAD_TYPE} from '../preloader/Preloader'
 import PageTransition from './PageTransition'
+import PreloadObserver from './PreloadObserver'
 
-export default class ImagePreloadObserver {
+export default class PreloadAttachment {
   global: window
   pageTransition: PageTransition
   target: HTMLElement | Document
+  preloadObserver: PreloadObserver
+  preloadSelector: string
 
-  constructor() {
+  constructor(preloadSelector: string) {
+    this.preloadSelector = preloadSelector
     this.global = window
     this.target = document
 
+    this.preloadObserver = PreloadObserver.create()
+
     this.pageTransition = PageTransition.create()
     this.pageTransition.on(PageTransition.LOADED, this._loadedPageTransition.bind(this))
+
+    this._loaded()
   }
 
   _loadedPageTransition() {
@@ -20,7 +28,7 @@ export default class ImagePreloadObserver {
   }
 
   _attach() {
-    const elements = [...this.target.querySelectorAll('.js-preload')]
+    const elements = [...this.target.querySelectorAll(this.preloadSelector)]
     elements.map((e: HTMLElement) => {
       const {src} = e.dataset
       const preloadItems = this.global.preloader.queues
@@ -31,13 +39,8 @@ export default class ImagePreloadObserver {
     })
   }
 
-  observe() {
-    this.global.preloader.on('complete', () => {
-      this._attach()
-    })
-    if (this.global.preloader.loaded) {
-      this._attach()
-    }
+  _loaded() {
+    this.preloadObserver.on(PreloadObserver.COMPLETE, this._attach.bind(this))
   }
 
 }

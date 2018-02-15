@@ -39,7 +39,6 @@ export default class Pjax extends EventEmitter {
       this.emit(Pjax.FETCH, e)
     })
     document.addEventListener('pjax:content', e => {
-      console.log('pljax.content')
       this.emit(Pjax.CONTENT, e)
     })
     document.addEventListener('pjax:ready', e => {

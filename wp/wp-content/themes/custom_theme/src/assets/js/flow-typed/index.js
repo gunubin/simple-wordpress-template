@@ -1,3 +1,4 @@
 declare var config: {
-  jsRelativeUrl: string
+  jsRelativeUrl: string,
+  preloadSelector: string,
 };

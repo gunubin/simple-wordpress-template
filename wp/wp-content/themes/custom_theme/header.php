@@ -9,7 +9,12 @@
 <!-- wrapper -->
 <div class="wrapper">
 
-  <div class="progress-bar"></div>
+  <div class="progress">
+    <div class="progress-inner">
+      <div class="progress-bar"></div>
+      <div class="progress-bar-bg"></div>
+    </div>
+  </div>
 
   <!-- header -->
   <header class="header">

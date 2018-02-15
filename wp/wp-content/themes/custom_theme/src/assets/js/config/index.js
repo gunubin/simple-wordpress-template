@@ -2,7 +2,8 @@
 export type Config = {
   jsRelativeUrl: string,
   mediaQuery: Object,
-  pageTransitionContainer: string
+  pageTransitionContainer: string,
+  preloadSelector: string
 }
 
 const baseConfig: Config = {
@@ -13,7 +14,8 @@ const baseConfig: Config = {
     md: 'screen and (min-width: 1025px) and (max-width: 1180px)',
     lg: 'screen and (min-width: 1181px)'
   },
-  pageTransitionContainer: '#page-transition'
+  pageTransitionContainer: '#page-transition',
+  preloadSelector: '.js-preload'
 }
 
 const configure = () => {

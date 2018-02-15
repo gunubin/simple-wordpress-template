@@ -8,51 +8,50 @@ export default class Progress {
 
   isFirst: boolean = true
   loader: Preloader
-  selector: string = '.progress-bar'
+  percent: number = 0
+  selector: string
+  preloadSelector: string
 
-  constructor() {
+  constructor(selector: string, preloadSelector: string) {
+    this.selector = selector
+    this.preloadSelector = preloadSelector
     this.loader = new Preloader()
-    this.loader.on(Preloader.PROGRESS, e => this.progress(e.progress))
-    this.loader.on(Preloader.FILELOAD, this.fileload.bind(this))
-    this.loader.on(Preloader.COMPLETE, this.complete.bind(this))
+    this.loader.on(Preloader.PROGRESS, e => this._progress(e.progress))
+    this.loader.on(Preloader.FILELOAD, this._fileload.bind(this))
+    this.loader.on(Preloader.COMPLETE, this._complete.bind(this))
   }
 
-  on(...args: any[]) {
-    this.loader.on(...args)
-  }
-
-  select() {
+  _select() {
     return document.querySelector(this.selector)
   }
 
-  attachAppJs(scriptTag: HTMLElement) {
+  _attachAppJs(scriptTag: HTMLElement) {
     const {body} = document
     body && body.appendChild(scriptTag)
   }
 
-  progress(percent: number) {
-    const p = this.select()
-    if (p) {
-      p.style.opacity = '1'
-      p.style.width = `${percent * 100}%`
+
+  _progress(percent: number) {
+    this.percent = percent
+    const bar = this._select()
+    if (bar) {
+      bar.classList.add('show')
+      bar.style.opacity = '1'
+      bar.style.width = `${percent * 100}%`
     }
   }
 
-  fileload(e: any) {
+  _fileload(e: any) {
     const {item} = e
     if (item.type === LOAD_TYPE.js) {
-      this.attachAppJs(item.tag)
+      this._attachAppJs(item.tag)
     }
   }
 
-  complete() {
-    const p = this.select()
-    if (p) {
-      p.style.opacity = '0'
-    }
+  _complete() {
   }
 
-  getManifest() {
+  _getManifest() {
     const elements = [...document.querySelectorAll('.js-preload')]
     return elements.map(e => {
       return {
@@ -64,8 +63,12 @@ export default class Progress {
     })
   }
 
+  on(...args: any[]) {
+    this.loader.on(...args)
+  }
+
   load() {
-    let manifest = this.getManifest()
+    let manifest = this._getManifest()
     // 初回だけjsロード
     if (this.isFirst) {
       manifest = [
@@ -79,6 +82,14 @@ export default class Progress {
     }
     this.loader.load(manifest)
     this.isFirst = false
+  }
+
+  reset() {
+    const bar = this._select()
+    if (bar) {
+      bar.classList.remove('show')
+      bar.style.width = '0%'
+    }
   }
 
   get loaded(): boolean {

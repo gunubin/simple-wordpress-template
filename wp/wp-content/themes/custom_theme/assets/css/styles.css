@@ -481,14 +481,42 @@ img {
 .animate {
   font-size: 20px; }
 
-.progress-bar {
-  position: relative;
+.progress {
+  z-index: 5000;
+  position: fixed;
   top: 0;
   left: 0;
-  width: 0%;
-  height: 5px;
-  transition: width 0.25s linear, opacity 0.2s ease;
-  background-color: #000; }
+  width: 100%;
+  height: 100vh;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.30s ease; }
+  .progress.hide {
+    opacity: 0;
+    visibility: hidden; }
+  .progress-inner {
+    position: relative;
+    max-width: 300px;
+    width: 100%;
+    border-radius: 5px; }
+    .progress-inner:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      max-width: 300px;
+      width: 100%;
+      height: 5px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 5px; }
+  .progress-bar {
+    height: 5px;
+    background-color: #fff;
+    border-radius: 5px; }
+    .progress-bar.show {
+      transition: width 0.10s linear; }
 
 .main {
   position: relative;
