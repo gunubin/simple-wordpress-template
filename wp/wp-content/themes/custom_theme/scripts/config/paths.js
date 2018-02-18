@@ -4,6 +4,7 @@ const path = require('path');
 const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 
+// FIXME: 階層化するか検討
 module.exports = {
   src: resolveApp('src'),
   build: resolveApp('assets'),

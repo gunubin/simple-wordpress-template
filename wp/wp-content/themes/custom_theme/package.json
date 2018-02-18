@@ -28,6 +28,7 @@
     "fs-extra": "^5.0.0",
     "imagemin": "^5.3.1",
     "imagemin-jpegtran": "^5.0.2",
+    "imagemin-mozjpeg": "^7.0.0",
     "imagemin-pngquant": "^5.0.1",
     "node-sass": "^4.7.2",
     "nodemon": "^1.14.11",
@@ -46,6 +47,6 @@
     "build:js": "node scripts/build",
     "clean": "node scripts/clean",
     "lint:flow": "flow",
-    "start": "node scripts/webpack & node scripts/server"
+    "start": "npm run clean && npm run build:image & node scripts/webpack & node scripts/server"
   }
 }
