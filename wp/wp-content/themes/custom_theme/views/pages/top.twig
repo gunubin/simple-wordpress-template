@@ -1,0 +1,77 @@
+{% extends 'layouts/default.twig' %}
+
+{% block content %}
+
+    {% for post in posts %}
+        <pre>
+        {#{{ dump(post) }}#}
+        </pre>
+    {% endfor %}
+
+    <div class="main">
+
+        <div id="page-transition">
+
+
+
+            <div class="kv-row">
+                <div class="kv">
+                    <img class="js-preload" data-src="{{ paths.image }}/kv.jpg" alt=""/>
+                </div>
+                <div class="kv">
+                    <img class="js-preload" data-src="{{ paths.image }}/kv2.jpg" alt=""/>
+                </div>
+            </div>
+
+            <script type="text/javascript" charset="utf-8">
+              window.preloader.load()
+            </script>
+
+
+            <br/>
+
+            <div class="animate">animate <span class="animate-span">span</span></div>
+
+            <div class="foo">foo</div>
+
+            <div class="ob-row">
+                {% for i in 0..30 %}
+                <div class="ob">
+                    <div class="ob-inner">
+                        scroll obseier
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+
+        <div class="test-container">
+            <div class="row">
+                <div class="col col-menu">
+                    <div class="bg">col1</div>
+                </div>
+                <div class="col col-menu">
+                    <div class="bg">col2</div>
+                </div>
+                <div class="col col-menu">
+                    <div class="bg">col3</div>
+                </div>
+                <div class="col col-menu">
+                    <div class="bg">col3</div>
+                </div>
+            </div>
+        </div>
+
+
+        <div>
+            main
+            main2
+        </div>
+
+    </div>
+
+    {{ foo }}
+{% endblock %}
+

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    {{ wp_head }}
+    
+    <script type="text/javascript" charset="utf-8">
+      var config = window.config || {}
+      config.jsRelativeUrl = '{{ function('get_scripts_uri') }}'
+      window.config = config
+    </script>
+    <link rel="stylesheet" href="{{ function('get_styles_uri') }}/styles.css">
+    <script type="text/javascript" src="{{ function('get_scripts_uri') }}/preloader.js"></script>
+</head>
+<body>
+
+{% include "components/header.twig" %}
+
+{% block content %}{% endblock %}
+
+{% include "components/footer.twig" with {'menu': 'footer!!'} %}
+
+{{ wp_foot }}
+
+</body>
+</html>

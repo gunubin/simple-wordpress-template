@@ -11,6 +11,16 @@ include_once(dirname(__FILE__) . '/lib/menus.php');
 include_once(dirname(__FILE__) . '/lib/plugins/acf.php');
 include_once(dirname(__FILE__) . '/lib/plugins/wpcf7.php');
 
+require_once dirname(__FILE__) . '/lib/vendor/extended-template-parts/extended-template-parts.php';
+
+function get_component($slug, $name = '', array $vars = []) {
+  get_extended_template_part($slug, $name, $vars, array(
+    'dir' => 'components',
+    'cache' => WP_DEBUG ? false : 2,// seconds
+  ));
+}
+
+
 add_action('pre_get_posts', function ($query) {
   if (is_admin() || !$query->is_main_query()) {
     return;

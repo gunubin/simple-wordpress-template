@@ -24,7 +24,7 @@ bs.watch(`${paths.build}/**/*.*`).on('change', file => {
   bs.reload(file)
 })
 
-// php
-bs.watch(`**/*.php`).on('change', file => {
+// php or twig
+bs.watch(`**/*.(php|twig)`).on('change', file => {
   bs.reload(file)
 })
