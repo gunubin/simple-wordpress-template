@@ -53,6 +53,7 @@ export default class Progress {
 
   _getManifest() {
     const elements = [...document.querySelectorAll('.js-preload')]
+    // const elements = Array.prototype.slice.call(document.querySelectorAll('.js-preload'), 0)
     return elements.map(e => {
       return {
         element: e,
@@ -77,7 +78,7 @@ export default class Progress {
           src: `${config.jsRelativeUrl}/app.js`,
           loadTimeout: DEFAULT_TIMEOUT
         },
-        ...manifest,
+        ...manifest
       ]
     }
     this.loader.load(manifest)

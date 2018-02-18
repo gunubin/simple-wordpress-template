@@ -26,8 +26,10 @@ export default class Preloader {
   loader: any
 
   constructor() {
+    // xhrでダウンロード後に<img/>化される。その際にweb serverのアクセスログとしては2回アクセスログが残るが、
+    // ブラウザキャッシュが有効であるのでxhr後のタグ生成時は304になる
     this.loader = new createjs.LoadQueue(process.env.NODE_ENV === 'production')
-    // this.loader = new createjs.LoadQueue(true)
+    // this.loader = new createjs.LoadQueue(true, '/')
     this.loader.setMaxConnections(this.maxConnections)
     this.loader.on('fileload', this.fileload.bind(this))
   }

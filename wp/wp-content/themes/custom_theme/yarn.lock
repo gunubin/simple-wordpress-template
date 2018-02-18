@@ -4909,9 +4909,9 @@ pinkie@^2.0.0:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/pinkie/-/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
 
-pjax-api@^3.20.1:
-  version "3.20.1"
-  resolved "https://registry.yarnpkg.com/pjax-api/-/pjax-api-3.20.1.tgz#a7e7ef075dd3646c1ae5e63eeea45403c7dd5d37"
+pjax@^0.2.5:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/pjax/-/pjax-0.2.5.tgz#aebd671b50045ff79c6a5e86d3d361be5060a626"
 
 pkg-dir@^2.0.0:
   version "2.0.0"

@@ -2,7 +2,7 @@
 import EventEmitter from 'events'
 // FIXME: webpackに対応したか確認
 // $FlowFixMe webpackに対応したか確認
-const PjaxBase = require("exports-loader?require!pjax-api")('pjax-api').Pjax;
+import PjaxBase from 'pjax'
 
 type Params = {
   selector: string,
@@ -35,17 +35,11 @@ export default class Pjax extends EventEmitter {
 
   _setup() {
     // http://falsandtru.github.io/pjax-api/api/event/
-    window.addEventListener('pjax:fetch', e => {
+    document.addEventListener('pjax:send', e => {
       this.emit(Pjax.FETCH, e)
     })
-    document.addEventListener('pjax:content', e => {
-      this.emit(Pjax.CONTENT, e)
-    })
-    document.addEventListener('pjax:ready', e => {
+    document.addEventListener('pjax:complete', e => {
       this.emit(Pjax.READY, e)
-    })
-    window.addEventListener('pjax:load', e => {
-      this.emit(Pjax.LOAD, e)
     })
   }
 
@@ -56,20 +50,15 @@ export default class Pjax extends EventEmitter {
   start({wait = 0, ...params}: Params): PjaxBase {
     this.selector = params.selector
     return new PjaxBase({
-      areas: [
-        this.selector, // try to use the first query.
-        'body', // fallback.
+      // elements: 'a:not([target]):not([href="javascript:void(0)"])',
+      elements: 'a',
+      selectors: [
+        'title',
+        this.selector,
       ],
-      link: 'a:not([target]):not([href="javascript:void(0)"])',
-      fetch: {
-        timeout: 3000 * 10,
-        wait: wait,
-      },
-      update: {
-        css: false,
-        script: false,
-      }
-    });
+      cacheBust: false,
+      debug: false,
+    })
   }
 
 }
