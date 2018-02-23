@@ -74,8 +74,10 @@ function is_current( $uri = array(), $full = false ) {
   return $r;
 }
 
-function the_current_class( $uri, $full = false ) {
+function get_current_class( $uri, $full = false ) {
+  $ret = '';
   if(is_current( $uri, $full )) {
-    echo 'active';
+    $ret = 'active';
   };
+  return $ret;
 }

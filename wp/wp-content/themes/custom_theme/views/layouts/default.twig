@@ -7,11 +7,11 @@
     
     <script type="text/javascript" charset="utf-8">
       var config = window.config || {}
-      config.jsRelativeUrl = '{{ function('get_scripts_uri') }}'
+      config.jsRelativeUrl = '{{ get_scripts_uri() }}'
       window.config = config
     </script>
-    <link rel="stylesheet" href="{{ function('get_styles_uri') }}/styles.css">
-    <script type="text/javascript" src="{{ function('get_scripts_uri') }}/preloader.js"></script>
+    <link rel="stylesheet" href="{{ get_styles_uri() }}/styles.css">
+    <script type="text/javascript" src="{{ get_scripts_uri() }}/preloader.js"></script>
 </head>
 <body>
 

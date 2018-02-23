@@ -1,15 +1,19 @@
 <?php
-include_once(dirname(__FILE__) . '/lib/base.php');
-include_once(dirname(__FILE__) . '/lib/configure.php');
-include_once(dirname(__FILE__) . '/lib/permalink.php');
-include_once(dirname(__FILE__) . '/lib/paths.php');
-include_once(dirname(__FILE__) . '/lib/thumbnail.php');
-include_once(dirname(__FILE__) . '/lib/custom_post.php');
-include_once(dirname(__FILE__) . '/lib/paginate.php');
-include_once(dirname(__FILE__) . '/lib/menus.php');
+//foreach (glob(get_template_directory() . "/lib/**/*.php")  as $file) {
+//  require $file;
+//}
+require_once(dirname(__FILE__) . '/lib/base.php');
+require_once(dirname(__FILE__) . '/lib/configure.php');
+require_once(dirname(__FILE__) . '/lib/permalink.php');
+require_once(dirname(__FILE__) . '/lib/paths.php');
+require_once(dirname(__FILE__) . '/lib/thumbnail.php');
+require_once(dirname(__FILE__) . '/lib/custom_post.php');
+require_once(dirname(__FILE__) . '/lib/paginate.php');
+require_once(dirname(__FILE__) . '/lib/menus.php');
 
-include_once(dirname(__FILE__) . '/lib/plugins/acf.php');
-include_once(dirname(__FILE__) . '/lib/plugins/wpcf7.php');
+require_once(dirname(__FILE__) . '/lib/vendor/acf.php');
+require_once(dirname(__FILE__) . '/lib/vendor/wpcf7.php');
+require_once(dirname(__FILE__) . '/lib/vendor/timber.php');
 
 require_once dirname(__FILE__) . '/lib/vendor/extended-template-parts/extended-template-parts.php';
 

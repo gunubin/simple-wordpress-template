@@ -1,0 +1,43 @@
+{
+    "key": "group_5a8acb914224f",
+    "title": "テストグループ",
+    "fields": [
+        {
+            "key": "field_5a8acb9e39ae2",
+            "label": "name",
+            "name": "name",
+            "type": "textarea",
+            "instructions": "jij",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": "",
+            "new_lines": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "post"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1519046348
+}
