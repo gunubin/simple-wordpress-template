@@ -1,0 +1,5 @@
+<nav class="m-nav">
+  {% for link in links %}
+    {% include "components/atoms/link.twig" with {'href': link.href, 'label': link.label} %}
+  {% endfor %}
+</nav>

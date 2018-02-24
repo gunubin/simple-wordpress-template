@@ -1,0 +1,7 @@
+.m-nav {
+  @include row(6);
+
+  .a-link {
+    margin: 0 10px;
+  }
+}

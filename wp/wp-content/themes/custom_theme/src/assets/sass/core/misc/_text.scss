@@ -8,7 +8,7 @@
   @return leading($fz, $lin) / 2;
 }
 
-@mixin fz($fz, $lin, $tracking) {
+@mixin fz($fz, $lin: $fz, $tracking: 50) {
   $rem: $fz / 10;
   $linS: $lin / $fz;
   font-size: #{$rem}rem;

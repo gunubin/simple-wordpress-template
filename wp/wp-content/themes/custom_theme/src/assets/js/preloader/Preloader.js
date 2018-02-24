@@ -21,11 +21,13 @@ export default class Preloader {
   static FILELOAD = 'fileload'
   static COMPLETE = 'complete'
 
-  maxConnections: number = 3
+  maxConnections: number = window.config.maxConnections
   queues: Queue[] = []
   loader: any
 
   constructor() {
+
+    console.log('bbbbbbb')
     // xhrでダウンロード後に<img/>化される。その際にweb serverのアクセスログとしては2回アクセスログが残るが、
     // ブラウザキャッシュが有効であるのでxhr後のタグ生成時は304になる
     this.loader = new createjs.LoadQueue(process.env.NODE_ENV === 'production')

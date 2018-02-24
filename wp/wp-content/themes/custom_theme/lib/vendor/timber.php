@@ -12,6 +12,8 @@ add_filter('timber/twig', function (\Twig_Environment $twig) {
   $twig->addFunction(new Timber\Twig_Function('get_current_class', 'get_current_class'));
   $twig->addFunction(new Timber\Twig_Function('get_thumbnail_uri', 'get_thumbnail_uri'));
   $twig->addFunction(new Timber\Twig_Function('the_thumbnail', 'the_thumbnail'));
+  $twig->addFunction(new Timber\Twig_Function('home_url', 'home_url'));
   return $twig;
+
 });
 

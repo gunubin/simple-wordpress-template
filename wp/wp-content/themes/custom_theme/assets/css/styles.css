@@ -1,4 +1,6 @@
 @charset "UTF-8";
+/* color
+------------------------------------------------------------ */
 /* grid
 ------------------------------------------------------------ */
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
@@ -478,46 +480,120 @@ img {
   .hidden-pc {
     display: none !important; } }
 
-.animate {
-  font-size: 20px; }
+/*atoms*/
+.a-button {
+  padding: 1em;
+  display: block;
+  background-color: #eee;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  color: #222;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.05em; }
 
-.progress {
-  z-index: 5000;
+.a-link {
+  display: block;
+  color: blue;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.05em; }
+
+.a-input {
+  padding: 0.5em;
+  border: solid 1px #ccc;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.05em; }
+
+.a-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8); }
+
+.a-page-title {
+  border-bottom: solid 1px #eee;
+  padding-bottom: 0.5em;
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.05em; }
+
+.a-section-title {
+  border-bottom: solid 1px #eee;
+  padding-bottom: 0.5em;
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.05em; }
+
+.a-text {
+  color: #222;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.05em; }
+  .a-text.xxs {
+    font-size: 0.8rem;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.05em; }
+  .a-text.xs {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.05em; }
+  .a-text.sm {
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.05em; }
+  .a-text.md {
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.05em; }
+  .a-text.lg {
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.05em; }
+  .a-text.xlg {
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.05em; }
+
+/*molecules*/
+.m-kv img {
+  width: 300px; }
+
+.m-nav {
+  display: flex;
+  flex: 0 1 auto;
+  flex-flow: row wrap;
+  margin-left: -3;
+  margin-right: -3; }
+  .m-nav .a-link {
+    margin: 0 10px; }
+
+/*organisms*/
+.header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
-  background-color: #000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: 0.30s ease; }
-  .progress.hide {
-    opacity: 0;
-    visibility: hidden; }
-  .progress-inner {
-    position: relative;
-    max-width: 300px;
-    width: 100%;
-    border-radius: 5px; }
-    .progress-inner:after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      max-width: 300px;
-      width: 100%;
-      height: 5px;
-      background-color: rgba(255, 255, 255, 0.2);
-      border-radius: 5px; }
-  .progress-bar {
-    height: 5px;
-    background-color: #fff;
-    border-radius: 5px; }
-    .progress-bar.show {
-      transition: width 0.10s linear; }
+  background-color: #fff;
+  padding: 10px; }
 
+/*pages*/
 .main {
   position: relative;
   height: 300vh; }

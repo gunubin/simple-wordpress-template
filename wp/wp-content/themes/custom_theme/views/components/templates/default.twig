@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+{% include 'components/organisms/head.twig' with {'title': 'Atomic Style Book'} %}
+<body>
+
+{% include "components/organisms/header.twig" %}
+
+<div id="page-transition">
+{% block content %}{% endblock %}
+</div>
+
+{% include "components/organisms/footer.twig" %}
+
+{{ wp_foot }}
+
+</body>
+</html>

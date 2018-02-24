@@ -1,0 +1,13 @@
+<head>
+  <meta charset="utf-8">
+  <title>{{ title }}</title>
+  {{ wp_head }}
+
+  <script type="text/javascript" charset="utf-8">
+    var config = window.config || {}
+    config.jsRelativeUrl = '{{ get_scripts_uri() }}'
+    window.config = config
+  </script>
+  <link rel="stylesheet" href="{{ get_styles_uri() }}/styles.css">
+  <script type="text/javascript" src="{{ get_scripts_uri() }}/preloader.js"></script>
+</head>

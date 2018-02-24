@@ -8,8 +8,7 @@ module.exports =
     common,
     {
       cache: true,
-      // devtool: 'heap-module-eval-source-map',
-      devtool: 'source-map',
+      devtool: 'heap-module-eval-source-map',
       entry: {
         app: [
           "babel-polyfill",

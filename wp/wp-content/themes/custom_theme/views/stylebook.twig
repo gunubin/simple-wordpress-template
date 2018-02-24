@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+{% include 'components/organisms/head.twig' with {'title': 'Atomic Style Book'} %}
+<body>
+
+<style type="text/css">
+  .stylebook {
+    padding: 50px 50px 0;
+  }
+  .stylebook-items {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0 -1em;
+  }
+  .stylebook-item {
+    position: relative;
+    margin: 2em 1em 0;
+    background-color: #fff;
+    border: 1px solid #eee;
+  }
+  .stylebook-item-title {
+    z-index:  9999;
+    position: relative;
+    padding: 0.7em 1em;
+    background-color: #eee;
+    font-size: 13px;
+    line-height: 1;
+  }
+</style>
+
+<div class="stylebook">
+  <h1 class="stylebook-group-title">
+    Atoms
+  </h1>
+  <div class="stylebook-items">
+    <div class="stylebook-item">
+      <p class="stylebook-item-title">text inline</p>
+      {% include "components/atoms/text.twig" with {'inline': true, 'text': '文字列が入ります。文字列が入ります。'} %}
+      <p class="stylebook-item-title">text xxs</p>
+      {% include "components/atoms/text.twig" with {'size': 'xxs', 'text': '文字列が入ります。文字列が入ります。'} %}
+      <p class="stylebook-item-title">text xs</p>
+      {% include "components/atoms/text.twig" with {'size': 'xs', 'text': '文字列が入ります。文字列が入ります。'} %}
+      <p class="stylebook-item-title">text sm</p>
+      {% include "components/atoms/text.twig" with {'size': 'sm', 'text': '文字列が入ります。文字列が入ります。'} %}
+      <p class="stylebook-item-title">text md</p>
+      {% include "components/atoms/text.twig" with {'size': 'md', 'text': '文字列が入ります。文字列が入ります。'} %}
+      <p class="stylebook-item-title">text lg</p>
+      {% include "components/atoms/text.twig" with {'size': 'lg', 'text': '文字列が入ります。文字列が入ります。'} %}
+      <p class="stylebook-item-title">text xlg</p>
+      {% include "components/atoms/text.twig" with {'size': 'xlg', 'text': '文字列が入ります。文字列が入ります。'} %}
+    </div>
+    <div class="stylebook-item">
+      <p class="stylebook-item-title">link</p>
+      {% include "components/atoms/link.twig" with {'href': '', 'label': 'link'} %}
+    </div>
+    <div class="stylebook-item">
+      <p class="stylebook-item-title">button</p>
+      {% include "components/atoms/button.twig" with {'type': 'button', 'label': 'button label'} %}
+    </div>
+    <div class="stylebook-item">
+      <p class="stylebook-item-title">input</p>
+      {% include "components/atoms/input.twig" with {'type': 'text', 'label': 'input', 'placeholder': 'placeholder'} %}
+    </div>
+    <div class="stylebook-item">
+      <p class="stylebook-item-title">overlay</p>
+      {% include "components/atoms/overlay.twig" %}
+    </div>
+    <div class="stylebook-item">
+      <p class="stylebook-item-title">page-title</p>
+      {% include "components/atoms/page-title.twig" with {'title': 'page-title'} %}
+    </div>
+    <div class="stylebook-item">
+      <p class="stylebook-item-title">section-title</p>
+      {% include "components/atoms/section-title.twig" with {'title': 'section-title'} %}
+    </div>
+  </div>
+</div>
+
+<div class="stylebook">
+  <h1 class="stylebook-title">
+    Molecules
+  </h1>
+  <div class="stylebook-items">
+    <div class="stylebook-item">
+      <p class="stylebook-item-title">kv</p>
+      {% include "components/molecules/kv.twig" %}
+    </div>
+    <div class="stylebook-item">
+      <p class="stylebook-item-title">nav</p>
+      {% include "components/molecules/nav.twig" %}
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+

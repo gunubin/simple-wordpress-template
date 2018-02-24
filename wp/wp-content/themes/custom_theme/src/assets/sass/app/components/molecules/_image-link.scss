@@ -1,0 +1,8 @@
+.m-image-link {
+  .&-label {
+    @include fz(16);
+  }
+  img {
+    @include img-max;
+  }
+}

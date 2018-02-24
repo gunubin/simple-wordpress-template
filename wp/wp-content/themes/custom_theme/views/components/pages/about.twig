@@ -1,0 +1,20 @@
+{% extends 'components/templates/default.twig' %}
+{% block content %}
+
+  <div class="kv">
+    <img class="js-preload" data-src="{{ get_images_uri() }}/kv4.jpg" alt=""/>
+  </div>
+  <div class="kv">
+    <img class="js-preload" data-src="{{ get_images_uri() }}/kv3.jpg" alt=""/>
+  </div>
+
+  <script type="text/javascript" charset="utf-8">
+    window.preloader.load()
+  </script>
+
+  ...Put here the content you wish to change between pages...
+
+  <br/>
+  <a href="/">/ link</a>
+
+{% endblock %}

@@ -1,7 +1,7 @@
 <?php
 $context = Timber::get_context();
 $context['posts'] = new Timber\PostQuery();
-Timber::render('pages/top.twig', $context);
+Timber::render('components/pages/top.twig', $context);
 ?>
 
 

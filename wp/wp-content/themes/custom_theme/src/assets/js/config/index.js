@@ -1,13 +1,15 @@
 /* @flow */
-export type Config = {
+export type ConfigType = {
   jsRelativeUrl: string,
+  maxConnections: number,
   mediaQuery: Object,
   pageTransitionContainer: string,
   preloadSelector: string
 }
 
-const baseConfig: Config = {
+const baseConfig: ConfigType = {
   jsRelativeUrl: '',
+  maxConnections: 3,
   mediaQuery: {
     xs: 'screen and (max-width: 767px)',
     sm: 'screen and (min-width: 768px) and (max-width: 1024px)',

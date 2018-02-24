@@ -1,0 +1,13 @@
+<header class="header">
+  {% set links = [
+    {
+      'href': '/',
+      'label': 'home',
+    },
+    {
+      'href': 'about',
+      'label': 'about',
+    }
+  ] %}
+  {% include "components/molecules/nav.twig" with {'links': links} %}
+</header>

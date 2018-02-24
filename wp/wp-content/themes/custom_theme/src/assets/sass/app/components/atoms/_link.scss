@@ -1,0 +1,5 @@
+.a-link {
+  display: block;
+  color: blue;
+  @include fz(12);
+}
