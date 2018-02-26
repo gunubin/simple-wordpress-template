@@ -11,10 +11,12 @@ module.exports =
       devtool: 'heap-module-eval-source-map',
       entry: {
         app: [
-          "babel-polyfill",
+          require.resolve('./polyfills'),
+          // "babel-polyfill",
           paths.js.index
         ],
         preloader: [
+          require.resolve('./polyfills'),
           paths.js.preloader
         ]
       },

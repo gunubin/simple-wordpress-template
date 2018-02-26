@@ -1,5 +1,4 @@
 /* @flow */
-import './preloader/polyfill'
 import Progress from './preloader/Progress'
 import {configure} from './config';
 configure();

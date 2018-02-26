@@ -1,22 +1,25 @@
 .a-text {
   color: $text-color;
-  @include fz(12);
+  @include fz($xxs);
   &.xxs {
-    @include fz(8);
+    @include fz($xxs);
   }
   &.xs {
-    @include fz(10);
+    @include fz($xs);
   }
   &.sm {
-    @include fz(12);
+    @include fz($sm);
   }
   &.md {
-    @include fz(14);
+    @include fz($md);
   }
   &.lg {
-    @include fz(16);
+    @include fz($lg);
   }
-  &.xlg {
-    @include fz(20);
+  &.xl {
+    @include fz($xl);
+  }
+  &.xxl {
+    @include fz($xxl);
   }
 }

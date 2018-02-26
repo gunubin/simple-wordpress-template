@@ -1,0 +1,24 @@
+.a-margin {
+  margin-top: #{$xxs}px;
+  &.xxs {
+    margin-top: #{$xxs}px;
+  }
+  &.xs {
+    margin-top: #{$xs}px;
+  }
+  &.sm {
+    margin-top: #{$sm}px;
+  }
+  &.md {
+    margin-top: #{$md}px;
+  }
+  &.lg {
+    margin-top: #{$lg}px;
+  }
+  &.xl {
+    margin-top: #{$xl}px;
+  }
+  &.xxl {
+    margin-top: #{$xxl}px;
+  }
+}

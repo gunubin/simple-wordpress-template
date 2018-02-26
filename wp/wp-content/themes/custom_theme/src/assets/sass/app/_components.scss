@@ -1,4 +1,4 @@
-/*atoms*/
+/* atoms */
 @import "components/atoms/button";
 @import "components/atoms/label";
 @import "components/atoms/link";
@@ -7,14 +7,20 @@
 @import "components/atoms/page-title";
 @import "components/atoms/section-title";
 @import "components/atoms/text";
+@import "components/atoms/margin";
+@import "components/atoms/select";
+@import "components/atoms/switch";
+@import "components/atoms/hamburger";
 
-/*molecules*/
+/* molecules */
 @import "components/molecules/kv";
 @import "components/molecules/nav";
+@import "components/molecules/image-link";
+@import "components/molecules/labeled-switch";
 
-/*organisms*/
+/* organisms */
 @import "components/organisms/header";
 
-/*pages*/
+/* pages */
 @import "components/pages/top";
 

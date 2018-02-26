@@ -1,0 +1,11 @@
+<select
+  class="a-select"
+  {% if name is defined %}name="{{ name }}"{% endif %}
+  {% if id is defined %}id="{{ id }}"{% endif %}
+  {% if form is defined %}form="{{ form }}"{% endif %}
+  {% if value is defined %}value="{{ value }}"{% endif %}
+  {% for option in options %}
+>
+    <option value="{{ option.value }}">{{ option.label }}</option>
+  {% endfor %}
+</select>

@@ -29,6 +29,7 @@ export default class PreloadAttachment {
 
   _attach() {
     const elements = [...this.target.querySelectorAll(this.preloadSelector)]
+    // FIXME: srcが同じ場合にバグる
     elements.map((e: HTMLElement) => {
       const {src} = e.dataset
       const preloadItems = this.global.preloader.queues

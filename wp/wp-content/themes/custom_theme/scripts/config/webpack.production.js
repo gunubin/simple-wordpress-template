@@ -10,10 +10,12 @@ module.exports =
       devtool: 'source-map',
       entry: {
         app: [
-          "babel-polyfill",
+          require.resolve('./polyfills'),
+          // "babel-polyfill",
           paths.js.index
         ],
         preloader: [
+          require.resolve('./polyfills'),
           paths.js.preloader
         ]
       },

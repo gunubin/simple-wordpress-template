@@ -1,5 +1,10 @@
 .m-image-link {
-  .&-label {
+  position: relative;
+  &-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     @include fz(16);
   }
   img {

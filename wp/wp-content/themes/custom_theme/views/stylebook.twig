@@ -7,22 +7,32 @@
   .stylebook {
     padding: 50px 50px 0;
   }
+
+  .stylebook-group-title {
+    font-size: 20px;
+    font-weight: 700;
+    border-bottom: solid 1px #eee;
+  }
+
   .stylebook-items {
     display: flex;
     flex-flow: row wrap;
     margin: 0 -1em;
   }
+
   .stylebook-item {
     position: relative;
     margin: 2em 1em 0;
     background-color: #fff;
     border: 1px solid #eee;
   }
+
   .stylebook-item-title {
-    z-index:  9999;
+    z-index: 9999;
     position: relative;
     padding: 0.7em 1em;
-    background-color: #eee;
+    background-color: #f4f4f4;
+    font-weight: 700;
     font-size: 13px;
     line-height: 1;
   }
@@ -46,49 +56,124 @@
       {% include "components/atoms/text.twig" with {'size': 'md', 'text': '文字列が入ります。文字列が入ります。'} %}
       <p class="stylebook-item-title">text lg</p>
       {% include "components/atoms/text.twig" with {'size': 'lg', 'text': '文字列が入ります。文字列が入ります。'} %}
-      <p class="stylebook-item-title">text xlg</p>
-      {% include "components/atoms/text.twig" with {'size': 'xlg', 'text': '文字列が入ります。文字列が入ります。'} %}
+      <p class="stylebook-item-title">text xl</p>
+      {% include "components/atoms/text.twig" with {'size': 'xl', 'text': '文字列が入ります。文字列が入ります。'} %}
+      <p class="stylebook-item-title">text xxl</p>
+      {% include "components/atoms/text.twig" with {'size': 'xxl', 'text': '文字列が入ります。文字列が入ります。'} %}
     </div>
     <div class="stylebook-item">
-      <p class="stylebook-item-title">link</p>
+      <p class="stylebook-item-title">margin xxs</p>
+      {% include "components/atoms/margin.twig" with {'size': 'xxs'} %}
+      <p class="stylebook-item-title">margin xs</p>
+      {% include "components/atoms/margin.twig" with {'size': 'xs'} %}
+      <p class="stylebook-item-title">margin sm</p>
+      {% include "components/atoms/margin.twig" with {'size': 'sm'} %}
+      <p class="stylebook-item-title">margin md</p>
+      {% include "components/atoms/margin.twig" with {'size': 'md'} %}
+      <p class="stylebook-item-title">margin lg</p>
+      {% include "components/atoms/margin.twig" with {'size': 'lg'} %}
+      <p class="stylebook-item-title">margin xl</p>
+      {% include "components/atoms/margin.twig" with {'size': 'xl'} %}
+      <p class="stylebook-item-title">margin xxl</p>
+      {% include "components/atoms/margin.twig" with {'size': 'xxl'} %}
+    </div>
+    <div class="stylebook-item"><p class="stylebook-item-title">link</p>
       {% include "components/atoms/link.twig" with {'href': '', 'label': 'link'} %}
     </div>
-    <div class="stylebook-item">
-      <p class="stylebook-item-title">button</p>
+    <div class="stylebook-item"><p class="stylebook-item-title">button</p>
       {% include "components/atoms/button.twig" with {'type': 'button', 'label': 'button label'} %}
     </div>
-    <div class="stylebook-item">
-      <p class="stylebook-item-title">input</p>
-      {% include "components/atoms/input.twig" with {'type': 'text', 'label': 'input', 'placeholder': 'placeholder'} %}
-    </div>
-    <div class="stylebook-item">
-      <p class="stylebook-item-title">overlay</p>
+    <div class="stylebook-item"><p class="stylebook-item-title">overlay</p>
       {% include "components/atoms/overlay.twig" %}
     </div>
-    <div class="stylebook-item">
-      <p class="stylebook-item-title">page-title</p>
+    <div class="stylebook-item"><p class="stylebook-item-title">page-title</p>
       {% include "components/atoms/page-title.twig" with {'title': 'page-title'} %}
     </div>
     <div class="stylebook-item">
       <p class="stylebook-item-title">section-title</p>
       {% include "components/atoms/section-title.twig" with {'title': 'section-title'} %}
+      <p class="stylebook-item-title">section-title ja</p>
+      {% include "components/atoms/section-title.twig" with {'title': '日本語セクションタイトル', 'lang': 'ja'} %}
+    </div>
+    <div class="stylebook-item"><p class="stylebook-item-title">select</p>
+      {% set options = [
+        {
+          'value': 'option1',
+          'label': 'options1',
+        },
+        {
+          'value': 'option2',
+          'label': 'options2',
+        },
+      ] %}
+      {% include "components/atoms/select.twig" with {'options': options} %}
+    </div>
+    <div class="stylebook-item"> <p class="stylebook-item-title">switch</p>
+      {% include "components/atoms/switch.twig" with {'type': 'checkbox'} %}
+    </div>
+    <div class="stylebook-item"><p class="stylebook-item-title">input</p>
+      {% include "components/atoms/input.twig" with {'type': 'text', 'label': 'input', 'placeholder': 'placeholder'} %}
+    </div>
+    <div class="stylebook-item">
+      <p class="stylebook-item-title">hamburger</p>
+      {% include "components/atoms/hamburger.twig" %}
+      <p class="stylebook-item-title">hamburger open</p>
+      {% include "components/atoms/hamburger.twig" with {'status': 'open'} %}
     </div>
   </div>
 </div>
 
 <div class="stylebook">
-  <h1 class="stylebook-title">
+  <h1 class="stylebook-group-title">
     Molecules
   </h1>
   <div class="stylebook-items">
-    <div class="stylebook-item">
-      <p class="stylebook-item-title">kv</p>
+    <div class="stylebook-item"><p class="stylebook-item-title">image-link</p>
+      {% include "components/molecules/image-link.twig" with{'src': '', label: 'image-link'} %}
+    </div>
+    <div class="stylebook-item"><p class="stylebook-item-title">kv</p>
       {% include "components/molecules/kv.twig" %}
     </div>
-    <div class="stylebook-item">
-      <p class="stylebook-item-title">nav</p>
-      {% include "components/molecules/nav.twig" %}
+    <div class="stylebook-item"><p class="stylebook-item-title">nav</p>
+      {% set links = [
+        {
+          'href': '/',
+          'label': 'home',
+        },
+        {
+          'href': 'about',
+          'label': 'about',
+        }
+      ] %}
+      {% include "components/molecules/nav.twig" with {'links': links} %}
     </div>
+    <div class="stylebook-item"><p class="stylebook-item-title">labeled switch</p>
+      {% include "components/molecules/labeled-switch.twig" with {'label': 'label', 'type': 'checkbox'} %}
+    </div>
+  </div>
+</div>
+
+<div class="stylebook">
+  <h1 class="stylebook-group-title">
+    Organisms
+  </h1>
+  <div class="stylebook-items">
+  </div>
+</div>
+
+<div class="stylebook">
+  <h1 class="stylebook-group-title">
+    Templates
+  </h1>
+  <div class="stylebook-items">
+  </div>
+</div>
+
+<div class="stylebook">
+  <h1 class="stylebook-group-title">
+    Pages
+  </h1>
+  <div class="stylebook-items">
   </div>
 </div>
 

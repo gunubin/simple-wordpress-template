@@ -1,0 +1,43 @@
+.a-hamburger {
+  position: relative;
+  padding: 23px 24px;
+  width: 70px;
+  height: 60px;
+  border-radius: 50%;
+
+  .bar {
+    position: relative;
+    display: block;
+    top: 0;
+    width: 20px;
+    height: 2px;
+    background-color: #000;
+    border-radius: 10px;
+    transition: 0.24s ease;
+
+    &:nth-child(2) {
+      top: 5px;
+    }
+    &:nth-child(3) {
+      top: 10px;
+    }
+
+  }
+
+  &.open {
+    .bar:nth-child(1) {
+      top: 6px;
+      transform: rotate(-45deg);
+    }
+    .bar:nth-child(2) {
+      opacity: 0;
+      transform: translateX(-50%);
+    }
+    .bar:nth-child(3) {
+      top: 2px;
+      transform: rotate(45deg);
+    }
+  }
+
+
+}
